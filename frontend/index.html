@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareLink - Comprehensive Healthcare Solutions</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary-color: #06b6d4;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f8fafc;
+        --dark-text: #1e293b;
+        --light-text: #64748b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-text);
+      }
+
+      .hero-section {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .navbar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #764ba2 !important;
+        transform: translateY(-2px);
+      }
+
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background: #764ba2;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn-hero {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 15px 35px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        animation: fadeInUp 1s ease-out 0.6s both;
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        color: white;
+      }
+
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .floating-icon {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.1);
+        font-size: 2rem;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 3rem;
+      }
+
+      .service-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        height: 100%;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .service-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      }
+
+      .service-card h4 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--dark-text);
+      }
+
+      .service-card p {
+        color: var(--light-text);
+        line-height: 1.6;
+      }
+
+      .stats-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+        color: white;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .testimonial-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .author-info h6 {
+        margin: 0;
+        font-weight: 600;
+        color: var(--dark-text);
+      }
+
+      .author-info span {
+        color: var(--light-text);
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        background: #1a1a2e;
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      .contact-info {
+        background: var(--light-bg);
+        border-radius: 15px;
+        padding: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+      }
+
+      .pricing-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pricing-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      }
+
+      .pricing-card.featured {
+        transform: scale(1.05);
+        box-shadow: 0 20px 60px rgba(37, 99, 235, 0.2);
+        border: 2px solid var(--primary-color);
+      }
+
+      .pricing-card.featured::before {
+        height: 6px;
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .pricing-card.featured:hover {
+        transform: scale(1.05) translateY(-10px);
+      }
+
+      .plan-badge {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .plan-price {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .plan-period {
+        color: var(--light-text);
+        margin-bottom: 2rem;
+      }
+
+      .plan-features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2rem;
+      }
+
+      .plan-features li {
+        padding: 0.5rem 0;
+        color: var(--dark-text);
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .plan-features li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success-color);
+        font-weight: bold;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(37, 99, 235, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-overlay i {
+        color: white;
+        font-size: 2rem;
+      }
+
+      .blog-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .blog-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .blog-content {
+        padding: 1.5rem;
+      }
+
+      .blog-date {
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .blog-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0.5rem 0;
+      }
+
+      .blog-excerpt {
+        color: var(--light-text);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .oxygen-feature {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .oxygen-feature:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .oxygen-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        background: linear-gradient(45deg, #06b6d4, #0891b2);
+      }
+
+      .service-map {
+        background: var(--light-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .area-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .area-item {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.3s ease;
+      }
+
+      .area-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-content {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .modal-header {
+        border-bottom: none;
+        padding: 1.5rem 2rem;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+      }
+
+      .modal-title {
+        font-weight: 600;
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: var(--dark-text);
+      }
+
+      .form-control {
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.75rem 1rem;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+      }
+
+      .btn-close {
+        filter: invert(1);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><i class="fas fa-heart-pulse me-2"></i>CareLink</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="services (2).html">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pricing_full.html">Pricing Plan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="service-area (7).html">Service Area</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gallery.html">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Oxygen Cylinder .html">Oxygen Cylinder</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Contact .html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+  <a href="pages/register.html" class="btn btn-hero btn-xs">Login</a>
+</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="home" class="hero-section d-flex align-items-center">
+      <div class="hero-overlay"></div>
+      <div class="floating-elements">
+        <i
+          class="fas fa-user-nurse floating-icon"
+          style="top: 10%; left: 10%; animation-delay: 0s"
+        ></i>
+        <i
+          class="fas fa-heartbeat floating-icon"
+          style="top: 20%; right: 15%; animation-delay: 2s"
+        ></i>
+        <i
+          class="fas fa-stethoscope floating-icon"
+          style="bottom: 30%; left: 20%; animation-delay: 4s"
+        ></i>
+        <i
+          class="fas fa-pills floating-icon"
+          style="bottom: 20%; right: 10%; animation-delay: 1s"
+        ></i>
+        <i
+          class="fas fa-hospital floating-icon"
+          style="top: 50%; left: 5%; animation-delay: 3s"
+        ></i>
+      </div>
+
+      <div class="container hero-content">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h1 class="hero-title">
+              Compassionate Care for Every Stage of Life
+            </h1>
+            <p class="hero-subtitle">
+              Providing professional healthcare services with dignity, respect,
+              and personalized attention to ensure the well-being of your loved
+              ones.
+            </p>
+            <a href="#services" class="btn btn-hero btn-lg"
+              >Explore Our Services</a
+            >
+          </div>
+          <div class="col-lg-6">
+            <div class="text-center">
+              <i
+                class="fas fa-heartbeat"
+                style="font-size: 15rem; color: rgba(255, 255, 255, 0.2)"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Our Healthcare Services</h2>
+            <p class="section-subtitle">
+              Comprehensive care solutions tailored to meet the unique needs of
+              each individual and family.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-home"></i>
+              </div>
+              <h4>Home Care Services</h4>
+              <p>
+                Professional in-home healthcare services including nursing care,
+                personal assistance, and medical support in the comfort of your
+                own home.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-user-nurse"></i>
+              </div>
+              <h4>Skilled Nursing</h4>
+              <p>
+                Qualified registered nurses providing medical care, medication
+                management, wound care, and specialized treatment plans.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-wheelchair"></i>
+              </div>
+              <h4>Rehabilitation Services</h4>
+              <p>
+                Physical therapy, occupational therapy, and speech therapy to
+                help patients recover and maintain their independence.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <h4>Palliative Care</h4>
+              <p>
+                Compassionate end-of-life care focused on comfort, dignity, and
+                quality of life for patients and their families.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <h4>24/7 Support</h4>
+              <p>
+                Round-the-clock availability for emergency situations and
+                continuous monitoring of patient health and safety.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h4>Family Support</h4>
+              <p>
+                Guidance and resources for family members, including education,
+                emotional support, and care planning assistance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="stat-item">
+              <span class="stat-number">1,000+</span>
+              <div class="stat-label">Patients Served</div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="stat-item">
+              <span class="stat-number">50+</span>
+              <div class="stat-label">Healthcare Professionals</div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="stat-item">
+              <span class="stat-number">15+</span>
+              <div class="stat-label">Years of Experience</div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="stat-item">
+              <span class="stat-number">98%</span>
+              <div class="stat-label">Patient Satisfaction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section-padding bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Our Pricing Plans</h2>
+            <p class="section-subtitle">
+              Flexible and affordable healthcare plans designed to meet your
+              family's needs.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="pricing-card">
+              <div class="plan-badge">Basic Care</div>
+              <div class="plan-price">৳15,000</div>
+              <div class="plan-period">per month</div>
+              <ul class="plan-features">
+                <li>Daily health monitoring</li>
+                <li>Basic medical care</li>
+                <li>Medication management</li>
+                <li>Weekly doctor visits</li>
+                <li>24/7 emergency support</li>
+                <li>Family consultation</li>
+              </ul>
+              <a href="#contact" class="btn btn-outline-primary btn-lg w-100"
+                >Choose Plan</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="pricing-card featured">
+              <div class="plan-badge">Premium Care</div>
+              <div class="plan-price">৳25,000</div>
+              <div class="plan-period">per month</div>
+              <ul class="plan-features">
+                <li>All Basic Care features</li>
+                <li>Skilled nursing care</li>
+                <li>Physical therapy sessions</li>
+                <li>Daily doctor visits</li>
+                <li>Specialized treatments</li>
+                <li>Priority emergency response</li>
+                <li>Family support counseling</li>
+              </ul>
+              <a href="#contact" class="btn btn-hero btn-lg w-100"
+                >Most Popular</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="pricing-card">
+              <div class="plan-badge">Complete Care</div>
+              <div class="plan-price">৳40,000</div>
+              <div class="plan-period">per month</div>
+              <ul class="plan-features">
+                <li>All Premium Care features</li>
+                <li>Round-the-clock nursing</li>
+                <li>Advanced medical equipment</li>
+                <li>Specialist consultations</li>
+                <li>Rehabilitation services</li>
+                <li>Palliative care options</li>
+                <li>Comprehensive family support</li>
+              </ul>
+              <a href="#contact" class="btn btn-outline-primary btn-lg w-100"
+                >Choose Plan</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="service-area" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Our Service Areas</h2>
+            <p class="section-subtitle">
+              We proudly serve families across Dhaka and surrounding areas with
+              comprehensive healthcare solutions.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div class="service-map">
+              <div class="text-center mb-4">
+                <i
+                  class="fas fa-map-marked-alt"
+                  style="font-size: 4rem; color: var(--primary-color)"
+                ></i>
+                <h4 class="mt-3">Coverage Areas in Dhaka</h4>
+              </div>
+              <div class="area-list">
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Dhanmondi</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Gulshan</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Banani</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Uttara</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Mirpur</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Wari</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Motijheel</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Old Dhaka</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Tejgaon</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Ramna</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Pallabi</strong>
+                </div>
+                <div class="area-item">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  <strong>Bashundhara</strong>
+                </div>
+              </div>
+              <div class="mt-4">
+                <p class="text-muted">
+                  Don't see your area listed?
+                  <a href="#contact" class="text-primary">Contact us</a> to
+                  check if we can serve your location.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section-padding bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Our Gallery</h2>
+            <p class="section-subtitle">
+              Take a look at our modern facilities and compassionate care in
+              action.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item">
+              <div
+                style="
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #667eea, #764ba2);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 1.2rem;
+                "
+              >
+                <div class="text-center">
+                  <i
+                    class="fas fa-user-nurse"
+                    style="font-size: 3rem; margin-bottom: 1rem"
+                  ></i>
+                  <div>Professional Nursing Care</div>
+                </div>
+              </div>
+              <div class="gallery-overlay">
+                <div class="gallery-overlay">
+                  <i class="fas fa-search-plus"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item">
+              <div
+                style="
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #f093fb, #f5576c);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 1.2rem;
+                "
+              >
+                <div class="text-center">
+                  <i
+                    class="fas fa-home"
+                    style="font-size: 3rem; margin-bottom: 1rem"
+                  ></i>
+                  <div>Home Care Services</div>
+                </div>
+              </div>
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item">
+              <div
+                style="
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #4facfe, #00f2fe);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 1.2rem;
+                "
+              >
+                <div class="text-center">
+                  <i
+                    class="fas fa-wheelchair"
+                    style="font-size: 3rem; margin-bottom: 1rem"
+                  ></i>
+                  <div>Rehabilitation Center</div>
+                </div>
+              </div>
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item">
+              <div
+                style="
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #43e97b, #38f9d7);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 1.2rem;
+                "
+              >
+                <div class="text-center">
+                  <i
+                    class="fas fa-stethoscope"
+                    style="font-size: 3rem; margin-bottom: 1rem"
+                  ></i>
+                  <div>Medical Equipment</div>
+                </div>
+              </div>
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item">
+              <div
+                style="
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #fa709a, #fee140);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 1.2rem;
+                "
+              >
+                <div class="text-center">
+                  <i
+                    class="fas fa-heart"
+                    style="font-size: 3rem; margin-bottom: 1rem"
+                  ></i>
+                  <div>Palliative Care</div>
+                </div>
+              </div>
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item">
+              <div
+                style="
+                  width: 100%;
+                  height: 250px;
+                  background: linear-gradient(135deg, #a8edea, #fed6e3);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-size: 1.2rem;
+                "
+              >
+                <div class="text-center">
+                  <i
+                    class="fas fa-users"
+                    style="font-size: 3rem; margin-bottom: 1rem"
+                  ></i>
+                  <div>Family Counseling</div>
+                </div>
+              </div>
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section-padding">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2 class="section-title">About CareLink</h2>
+            <p class="mb-4">
+              CareLink has been a trusted healthcare provider for over 15 years,
+              dedicated to delivering exceptional care services that enhance the
+              quality of life for our patients and their families.
+            </p>
+            <p class="mb-4">
+              Our team of licensed healthcare professionals is committed to
+              providing personalized, compassionate care that respects the
+              dignity and independence of every individual we serve.
+            </p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                  <h6>24/7 Helpline</h6>
+                  <p class="mb-0">+880 1234-567890</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h6>Email Us</h6>
+                  <p class="mb-0">info@carelink.com</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                  <h6>Visit Us</h6>
+                  <p class="mb-0">Dhaka, Bangladesh</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="text-center">
+              <i
+                class="fas fa-hospital-user"
+                style="
+                  font-size: 20rem;
+                  color: var(--primary-color);
+                  opacity: 0.1;
+                "
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" class="section-padding bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Latest from Our Blog</h2>
+            <p class="section-subtitle">
+              Stay informed with the latest healthcare tips, news, and insights
+              from our medical experts.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="blog-card">
+              <div
+                style="
+                  width: 100%;
+                  height: 200px;
+                  background: linear-gradient(135deg, #667eea, #764ba2);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                "
+              >
+                <div class="text-center">
+                  <i class="fas fa-heartbeat" style="font-size: 3rem"></i>
+                </div>
+              </div>
+              <div class="blog-content">
+                <div class="blog-date">January 15, 2025</div>
+                <h5 class="blog-title">
+                  Essential Heart Health Tips for Seniors
+                </h5>
+                <p class="blog-excerpt">
+                  Learn about maintaining cardiovascular health as you age,
+                  including diet recommendations and exercise guidelines
+                  tailored for older adults.
+                </p>
+                <a href="#" class="text-primary"
+                  >Read More <i class="fas fa-arrow-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="blog-card">
+              <div
+                style="
+                  width: 100%;
+                  height: 200px;
+                  background: linear-gradient(135deg, #f093fb, #f5576c);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                "
+              >
+                <div class="text-center">
+                  <i class="fas fa-home" style="font-size: 3rem"></i>
+                </div>
+              </div>
+              <div class="blog-content">
+                <div class="blog-date">January 12, 2025</div>
+                <h5 class="blog-title">
+                  Making Your Home Safer for Elderly Care
+                </h5>
+                <p class="blog-excerpt">
+                  Simple modifications and safety measures you can implement to
+                  create a safer living environment for seniors receiving home
+                  care.
+                </p>
+                <a href="#" class="text-primary"
+                  >Read More <i class="fas fa-arrow-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="blog-card">
+              <div
+                style="
+                  width: 100%;
+                  height: 200px;
+                  background: linear-gradient(135deg, #4facfe, #00f2fe);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                "
+              >
+                <div class="text-center">
+                  <i class="fas fa-pills" style="font-size: 3rem"></i>
+                </div>
+              </div>
+              <div class="blog-content">
+                <div class="blog-date">January 10, 2025</div>
+                <h5 class="blog-title">Understanding Medication Management</h5>
+                <p class="blog-excerpt">
+                  A comprehensive guide to proper medication management for
+                  elderly patients, including timing, dosages, and potential
+                  interactions.
+                </p>
+                <a href="#" class="text-primary"
+                  >Read More <i class="fas fa-arrow-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <a href="./pages/blog.html" class="btn btn-outline-primary btn-lg"
+            >View All Articles</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="oxygen-cylinder" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Oxygen Cylinder Services</h2>
+            <p class="section-subtitle">
+              Professional oxygen therapy solutions for patients requiring
+              respiratory support at home or in medical facilities.
+            </p>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-lg-3 col-md-6">
+            <div class="oxygen-feature">
+              <div class="oxygen-icon">
+                <i class="fas fa-lungs"></i>
+              </div>
+              <h5>Medical Grade Oxygen</h5>
+              <p>
+                Pure, medical-grade oxygen cylinders meeting international
+                safety standards.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="oxygen-feature">
+              <div class="oxygen-icon">
+                <i class="fas fa-truck"></i>
+              </div>
+              <h5>Home Delivery</h5>
+              <p>
+                Fast and reliable delivery service available 24/7 across Dhaka
+                metropolitan area.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="oxygen-feature">
+              <div class="oxygen-icon">
+                <i class="fas fa-tools"></i>
+              </div>
+              <h5>Equipment Setup</h5>
+              <p>
+                Professional installation and setup of oxygen delivery systems
+                by trained technicians.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="oxygen-feature">
+              <div class="oxygen-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <h5>Emergency Support</h5>
+              <p>
+                Round-the-clock emergency support for urgent oxygen needs and
+                technical assistance.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a href="#contact" class="btn btn-hero btn-lg"
+            >Request Oxygen Services</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">What Our Families Say</h2>
+            <p class="section-subtitle">
+              Real experiences from families who trust us with their loved ones'
+              care.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="testimonial-card">
+              <p class="testimonial-text">
+                "The care team at CareLink has been incredible. They treat my
+                mother with such kindness and respect. I have complete peace of
+                mind knowing she's in good hands."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">SA</div>
+                <div class="author-info">
+                  <h6>Sarah Ahmed</h6>
+                  <span>Family Member</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="testimonial-card">
+              <p class="testimonial-text">
+                "Professional, compassionate, and reliable. CareLink's home care
+                services have made such a difference in my father's quality of
+                life. Highly recommended."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">MH</div>
+                <div class="author-info">
+                  <h6>Mohammad Hassan</h6>
+                  <span>Family Member</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="testimonial-card">
+              <p class="testimonial-text">
+                "The nursing staff is exceptional. They go above and beyond to
+                ensure comfort and proper medical care. We couldn't ask for
+                better service."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">FR</div>
+                <div class="author-info">
+                  <h6>Fatima Rahman</h6>
+                  <span>Family Member</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section-padding bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">
+              Ready to learn more about our services? Contact us today for a
+              free consultation.
+            </p>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="bg-white p-5 rounded-4 shadow">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="name" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="phone" required />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="service" class="form-label">Service Needed</label>
+                <select class="form-control" id="service" required>
+                  <option value="">Select a service</option>
+                  <option value="home-care">Home Care Services</option>
+                  <option value="skilled-nursing">Skilled Nursing</option>
+                  <option value="rehabilitation">
+                    Rehabilitation Services
+                  </option>
+                  <option value="palliative">Palliative Care</option>
+                  <option value="oxygen-cylinder">
+                    Oxygen Cylinder Services
+                  </option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea
+                  class="form-control"
+                  id="message"
+                  rows="4"
+                  placeholder="Tell us about your care needs..."
+                ></textarea>
+              </div>
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-hero btn-lg"
+                  onclick="handleSubmit()"
+                >
+                  Send Message
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="footer-brand">
+              <i class="fas fa-heart-pulse me-2"></i>CareLink
+            </div>
+            <p class="mb-4">
+              Providing compassionate healthcare services with dignity, respect,
+              and personalized attention for over 15 years.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Services</h5>
+            <div class="footer-links">
+              <a href="#services">Home Care</a>
+              <a href="#services">Skilled Nursing</a>
+              <a href="#services">Rehabilitation</a>
+              <a href="#services">Palliative Care</a>
+              <a href="#services">Family Support</a>
+              <a href="#oxygen-cylinder">Oxygen Cylinder</a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Company</h5>
+            <div class="footer-links">
+              <a href="#about">About Us</a>
+              <a href="#">Our Team</a>
+              <a href="#">Careers</a>
+              <a href="#">News</a>
+              <a href="#blog">Blog</a>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5 class="mb-3">Contact Info</h5>
+            <div class="footer-links">
+              <a href="tel:+8801234567890"
+                ><i class="fas fa-phone me-2"></i>+880 1234-567890</a
+              >
+              <a href="mailto:info@carelink.com"
+                ><i class="fas fa-envelope me-2"></i>info@carelink.com</a
+              >
+              <a href="#"
+                ><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a
+              >
+              <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+            </div>
+          </div>
+        </div>
+        <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">Privacy Policy | Terms of Service</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        const navLinks = document.querySelectorAll(".nav-link, .navbar-brand");
+
+        if (window.scrollY > 100) {
+          navbar.style.background = "rgba(255, 255, 255, 0.95)";
+          navbar.style.backdropFilter = "blur(10px)";
+          navLinks.forEach((link) => {
+            link.style.color = "rgba(50, 100, 255, 0.8)";
+          });
+        } else {
+          navbar.style.background = "rgba(255, 255, 255, 0.1)";
+          navbar.style.backdropFilter = "blur(10px)";
+          navLinks.forEach((link) => {
+            link.style.color = "rgba(255, 255, 255, 0.8)";
+          });
+        }
+      });
+
+      function animateCounter(element, target) {
+        const increment = target / 100;
+        let current = 0;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            element.textContent =
+              target.toLocaleString() +
+              (element.textContent.includes("%") ? "%" : "+");
+            clearInterval(timer);
+          } else {
+            element.textContent =
+              Math.floor(current).toLocaleString() +
+              (element.textContent.includes("%") ? "%" : "+");
+          }
+        }, 20);
+      }
+
+      const observerOptions = {
+        threshold: 0.5,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const statNumbers = entry.target.querySelectorAll(".stat-number");
+            statNumbers.forEach((stat) => {
+              const target = parseInt(stat.textContent.replace(/[^\d]/g, ""));
+              animateCounter(stat, target);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const statsSection = document.querySelector(".stats-section");
+      if (statsSection) {
+        observer.observe(statsSection);
+      }
+
+      function handleSubmit() {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+  const service = document.getElementById("service").value;
+  const message = document.getElementById("message").value;
+  const submitBtn = document.querySelector('button[onclick="handleSubmit()"]');
+
+  if (!name || !phone || !email || !service) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  submitBtn.textContent = "Sending...";
+  submitBtn.disabled = true;
+
+  // Create message object
+  const contactMessage = {
+    id: Date.now(), // Unique ID
+    name: name,
+    email: email,
+    phone: phone,
+    service: service,
+    message: message,
+    status: 'new',
+    created_at: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  saveContactMessage(contactMessage);
+
+  // Show success message
+  setTimeout(() => {
+    alert("Thank you for your inquiry! We will contact you within 24 hours.");
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("service").value = "";
+    document.getElementById("message").value = "";
+    submitBtn.textContent = "Send Message";
+    submitBtn.disabled = false;
+  }, 1000);
+}
+
+// ADD THIS FUNCTION TO index.html
+function saveContactMessage(message) {
+  // Get existing messages from localStorage
+  const existingMessages = JSON.parse(localStorage.getItem('carelink_contact_messages') || '[]');
+  
+  // Add new message
+  existingMessages.push(message);
+  
+  // Save back to localStorage
+  localStorage.setItem('carelink_contact_messages', JSON.stringify(existingMessages));
+  
+  console.log('Message saved:', message);
+}
+      const serviceCards = document.querySelectorAll(".service-card");
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.style.animation =
+                  "fadeInUp 0.8s ease-out forwards";
+              }, index * 200);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      serviceCards.forEach((card) => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(50px)";
+        cardObserver.observe(card);
+      });
+
+      const style = document.createElement("style");
+      style.textContent = `
+          @keyframes fadeInUp {
+              to {
+                  opacity: 1;
+                  transform: translateY(0);
+              }
+          }
+      `;
+      document.head.appendChild(style);
+
+      document.querySelectorAll(".testimonial-card").forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px) scale(1.02)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      const oxygenFeatures = document.querySelectorAll(".oxygen-feature");
+      oxygenFeatures.forEach((feature) => {
+        feature.style.opacity = "0";
+        feature.style.transform = "translateY(50px)";
+        cardObserver.observe(feature);
+      });
+      
+// 🧩 Role-based login redirect (real backend version)
+  async function handleLogin(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("login_email").value.trim();
+    const password = document.getElementById("login_password").value.trim();
+
+    if (!email || !password) {
+      alert("Please enter email and password!");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://127.0.0.1:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Login failed!");
+        return;
+      }
+
+      const user = data.user;
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // ✅ Redirect by role
+      if (user.role === "admin") {
+        window.location.href = "admin_with_demo.html";
+      } else if (user.role === "nurse") {
+        window.location.href = "nurse.html";
+      } else if (user.role === "patient") {
+        window.location.href = "patient.html";
+      } else {
+        alert("Unknown role! Access denied.");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+      console.error(err);
+    }
+  }
+
+    </script>
+  </body>
+</html>

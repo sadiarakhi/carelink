@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareLink - Pricing Plans</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+    
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary-color: #06b6d4;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f8fafc;
+        --dark-text: #1e293b;
+        --light-text: #64748b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-text);
+      }
+
+      .hero-section {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .navbar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #764ba2 !important;
+        transform: translateY(-2px);
+      }
+
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background: #764ba2;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn-hero {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 15px 35px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        animation: fadeInUp 1s ease-out 0.6s both;
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        color: white;
+      }
+
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .floating-icon {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.1);
+        font-size: 2rem;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 3rem;
+      }
+
+      .service-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        height: 100%;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .service-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      }
+
+      .service-card h4 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--dark-text);
+      }
+
+      .service-card p {
+        color: var(--light-text);
+        line-height: 1.6;
+      }
+
+      .stats-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+        color: white;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .testimonial-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .author-info h6 {
+        margin: 0;
+        font-weight: 600;
+        color: var(--dark-text);
+      }
+
+      .author-info span {
+        color: var(--light-text);
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        background: #1a1a2e;
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      .contact-info {
+        background: var(--light-bg);
+        border-radius: 15px;
+        padding: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+      }
+
+      .pricing-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pricing-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      }
+
+      .pricing-card.featured {
+        transform: scale(1.05);
+        box-shadow: 0 20px 60px rgba(37, 99, 235, 0.2);
+        border: 2px solid var(--primary-color);
+      }
+
+      .pricing-card.featured::before {
+        height: 6px;
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .pricing-card.featured:hover {
+        transform: scale(1.05) translateY(-10px);
+      }
+
+      .plan-badge {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .plan-price {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .plan-period {
+        color: var(--light-text);
+        margin-bottom: 2rem;
+      }
+
+      .plan-features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2rem;
+      }
+
+      .plan-features li {
+        padding: 0.5rem 0;
+        color: var(--dark-text);
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .plan-features li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success-color);
+        font-weight: bold;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(37, 99, 235, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-overlay i {
+        color: white;
+        font-size: 2rem;
+      }
+
+      .blog-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .blog-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .blog-content {
+        padding: 1.5rem;
+      }
+
+      .blog-date {
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .blog-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0.5rem 0;
+      }
+
+      .blog-excerpt {
+        color: var(--light-text);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .oxygen-feature {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .oxygen-feature:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .oxygen-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        background: linear-gradient(45deg, #06b6d4, #0891b2);
+      }
+
+      .service-map {
+        background: var(--light-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .area-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .area-item {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.3s ease;
+      }
+
+      .area-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-content {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .modal-header {
+        border-bottom: none;
+        padding: 1.5rem 2rem;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+      }
+
+      .modal-title {
+        font-weight: 600;
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: var(--dark-text);
+      }
+
+      .form-control {
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.75rem 1rem;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+      }
+
+      .btn-close {
+        filter: invert(1);
+      }
+    
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="fas fa-heart-pulse me-2"></i>CareLink
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="pricing.html">Pricing Plan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#service-area">Service Area</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#oxygen-cylinder">Oxygen Cylinder</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#contact">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="register.html" class="btn btn-hero btn-xs">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-padding bg-light" style="margin-top:100px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title">Our Pricing Plans</h2>
+            <p class="section-subtitle">
+              Flexible and affordable healthcare plans designed to meet your family's needs.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="pricing-card">
+              <div class="plan-badge">Basic Care</div>
+              <div class="plan-price">৳15,000</div>
+              <div class="plan-period">per month</div>
+              <ul class="plan-features">
+                <li>Daily health monitoring</li>
+                <li>Basic medical care</li>
+                <li>Medication management</li>
+                <li>Weekly doctor visits</li>
+                <li>24/7 emergency support</li>
+                <li>Family consultation</li>
+              </ul>
+              <a href="../index.html#contact" class="btn btn-outline-primary btn-lg w-100">Choose Plan</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="pricing-card featured">
+              <div class="plan-badge">Premium Care</div>
+              <div class="plan-price">৳25,000</div>
+              <div class="plan-period">per month</div>
+              <ul class="plan-features">
+                <li>All Basic Care features</li>
+                <li>Skilled nursing care</li>
+                <li>Physical therapy sessions</li>
+                <li>Daily doctor visits</li>
+                <li>Specialized treatments</li>
+                <li>Priority emergency response</li>
+                <li>Family support counseling</li>
+              </ul>
+              <a href="../index.html#contact" class="btn btn-hero btn-lg w-100">Most Popular</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="pricing-card">
+              <div class="plan-badge">Complete Care</div>
+              <div class="plan-price">৳40,000</div>
+              <div class="plan-period">per month</div>
+              <ul class="plan-features">
+                <li>All Premium Care features</li>
+                <li>Round-the-clock nursing</li>
+                <li>Advanced medical equipment</li>
+                <li>Specialist consultations</li>
+                <li>Rehabilitation services</li>
+                <li>Palliative care options</li>
+                <li>Comprehensive family support</li>
+              </ul>
+              <a href="../index.html#contact" class="btn btn-outline-primary btn-lg w-100">Choose Plan</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <div class="footer-brand">
+          <i class="fas fa-heart-pulse me-2"></i>CareLink
+        </div>
+        <p class="mb-4">
+          Providing compassionate healthcare services with dignity, respect,
+          and personalized attention for over 15 years.
+        </p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h5 class="mb-3">Services</h5>
+        <div class="footer-links">
+          <a href="../index.html#services">Home Care</a>
+          <a href="../index.html#services">Skilled Nursing</a>
+          <a href="../index.html#services">Rehabilitation</a>
+          <a href="../index.html#services">Palliative Care</a>
+          <a href="../index.html#services">Family Support</a>
+          <a href="../index.html#oxygen-cylinder">Oxygen Cylinder</a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h5 class="mb-3">Company</h5>
+        <div class="footer-links">
+          <a href="../index.html#about">About Us</a>
+          <a href="#">Our Team</a>
+          <a href="#">Careers</a>
+          <a href="#">News</a>
+          <a href="../index.html#blog">Blog</a>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <h5 class="mb-3">Contact Info</h5>
+        <div class="footer-links">
+          <a href="tel:+8801234567890"
+            ><i class="fas fa-phone me-2"></i>+880 1234-567890</a>
+          <a href="mailto:info@carelink.com"
+            ><i class="fas fa-envelope me-2"></i>info@carelink.com</a>
+          <a href="#"><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a>
+          <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+        </div>
+      </div>
+    </div>
+    <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p class="mb-0">Privacy Policy | Terms of Service</p>
+      </div>
+    </div>
+  </div>
+      <div class="container text-center">
+        <p>&copy; 2025 CareLink. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

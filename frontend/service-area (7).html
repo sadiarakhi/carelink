@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareLink - Service Areas</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { font-family: "Inter", sans-serif; margin:0; padding:0; }
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(90deg, #a4508b, #5f0a87); /* Purple + Pink gradient */
+      padding: 0.8rem 0;
+    }
+    .navbar .navbar-brand,
+    .navbar .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+    }
+    .navbar .nav-link:hover {
+      color: #ffd6f5 !important; /* Light pink hover */
+    }
+    .navbar .btn-login {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      padding: 6px 20px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .navbar .btn-login:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(-45deg, #8e2de2, #ff8ce6, #4a00e0);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .section-title { font-size: 2.5rem; font-weight: 700; }
+    .section-subtitle { color: #64748b; margin-bottom: 2rem; }
+    .area-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 1rem; }
+    .area-item { background: #fff; padding: 1rem; border-radius: 10px; border-left: 4px solid #8e2de2; transition: all 0.3s; }
+    .area-item:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .footer { background:#1a1a2e; color:#fff; padding:60px 0 30px; }
+    .footer a { color:rgba(255,255,255,0.7); text-decoration:none; }
+    .footer a:hover { color:#fff; }
+    .footer-brand { font-size:1.8rem; font-weight:700; margin-bottom:1rem; }
+    .footer-links a { display:block; margin-bottom:8px; }
+    .social-links a { display:inline-flex; width:40px; height:40px; border-radius:50%; 
+                      background:rgba(255,255,255,0.1); color:#fff; align-items:center; 
+                      justify-content:center; margin-right:10px; transition:all 0.3s; }
+    .social-links a:hover { background:#8e2de2; transform:translateY(-3px); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-heart-pulse me-2"></i>CareLink</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="services (2).html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing_full.html">Pricing Plan</a></li>
+          <li class="nav-item"><a class="nav-link active" href="service-area.html">Service Area</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#oxygen-cylinder">Oxygen Cylinder</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact Us</a></li>
+          <li class="nav-item"><a href="pages/register.html" class="btn btn-login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="display-4 fw-bold">Our Service Areas</h1>
+      <p class="lead">Delivering compassionate healthcare solutions across Dhaka and beyond.</p>
+    </div>
+  </section>
+
+  <!-- Service Area Section -->
+  <section class="section-padding py-5">
+    <div class="container text-center">
+      <h2 class="section-title">Coverage in Dhaka</h2>
+      <p class="section-subtitle">We proudly serve families across Dhaka and surrounding areas with comprehensive healthcare solutions.</p>
+
+      <div class="area-list">
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Dhanmondi</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Gulshan</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Banani</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Uttara</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Mirpur</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Wari</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Motijheel</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Old Dhaka</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Tejgaon</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Ramna</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Pallabi</div>
+        <div class="area-item"><i class="fas fa-map-marker-alt text-primary me-2"></i> Bashundhara</div>
+      </div>
+
+      <p class="mt-4 text-muted">Don't see your area listed? <a href="index.html#contact" class="text-primary">Contact us</a> to check if we can serve your location.</p>
+    </div>
+  </section>
+
+  <!-- Map Image -->
+  <div class="container my-4 text-center">
+    <img src="img/BANG.png" alt="Bangladesh Map">
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="footer-brand"><i class="fas fa-heart-pulse me-2"></i>CareLink</div>
+          <p class="mb-4">Providing compassionate healthcare services with dignity, respect, and personalized attention for over 15 years.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3">Services</h5>
+          <div class="footer-links">
+            <a href="index.html#services">Home Care</a>
+            <a href="index.html#services">Skilled Nursing</a>
+            <a href="index.html#services">Rehabilitation</a>
+            <a href="index.html#services">Palliative Care</a>
+            <a href="index.html#services">Family Support</a>
+            <a href="index.html#oxygen-cylinder">Oxygen Cylinder</a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3">Company</h5>
+          <div class="footer-links">
+            <a href="index.html#about">About Us</a>
+            <a href="#">Our Team</a>
+            <a href="#">Careers</a>
+            <a href="#">News</a>
+            <a href="index.html#blog">Blog</a>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <h5 class="mb-3">Contact Info</h5>
+          <div class="footer-links">
+            <a href="tel:+8801234567890"><i class="fas fa-phone me-2"></i>+880 1234-567890</a>
+            <a href="mailto:info@carelink.com"><i class="fas fa-envelope me-2"></i>info@carelink.com</a>
+            <a href="#"><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a>
+            <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+          </div>
+        </div>
+      </div>
+      <hr style="border-color: rgba(255,255,255,0.1)" />
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0">Privacy Policy | Terms of Service</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

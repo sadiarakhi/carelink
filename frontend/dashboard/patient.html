@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container py-4">
+      <h1 class="mb-4">Patient Dashboard</h1>
+      <button class="btn btn-danger mb-4" id="btnLogout">Logout</button>
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Create Appointment</h5>
+          <input
+            class="form-control mb-2"
+            id="a_nurse_id"
+            placeholder="Nurse ID (optional)"
+          />
+          <input
+            class="form-control mb-3"
+            id="a_date"
+            placeholder="YYYY-MM-DD HH:MM:SS"
+          />
+          <button class="btn btn-primary" id="btnCreateAppointment">
+            Create Appointment
+          </button>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Make Payment</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <input class="form-control mb-2" id="p_appointment_id" placeholder="Appointment ID" type="number" />
+        <input class="form-control mb-2" id="p_amount" placeholder="Amount ($)" type="number" step="0.01" />
+        <select class="form-control mb-3" id="p_method">
+          <option value="">Select Payment Method</option>
+          <option value="bkash">bKash</option>
+          <option value="nagad">Nagad</option>
+          <option value="card">Credit Card</option>
+          <option value="bank">Bank Transfer</option>
+        </select>
+        <button class="btn btn-success" id="btnMakePayment">
+          Make Payment
+        </button>
+      </div>
+      <div class="col-md-6">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h6>Payment History</h6>
+            <button class="btn btn-sm btn-outline-primary mb-2" id="btnLoadPayments">
+              Load My Payments
+            </button>
+            <div id="patientPaymentHistory" style="max-height: 200px; overflow-y: auto;">
+              <p class="text-muted">Click to load payment history</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">My Appointments</h5>
+          <button
+            class="btn btn-sm btn-outline-secondary mb-2"
+            id="btnLoadAppointments"
+          >
+            Load Appointments
+          </button>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nurse</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="tblAppointments"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+    <script>
+      const API = "http://127.0.0.1:5000";
+    
+      // Debug: Check what's in localStorage
+      console.log("LocalStorage user:", localStorage.getItem("user"));
+      
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      console.log("Parsed user:", user);
+
+      if (!user.id || user.role !== "patient") {
+        alert("Access denied! Please login as patient first.");
+        window.location.href = "../pages/register.html";
+      }
+
+      document.getElementById("btnLogout").onclick = () => {
+        localStorage.removeItem("user");
+        window.location.href = "../index.html";
+      };
+
+      document.getElementById("btnCreateAppointment").onclick = async () => {
+        const body = {
+          patient_id: user.id,
+          nurse_id: document.getElementById("a_nurse_id").value
+            ? parseInt(document.getElementById("a_nurse_id").value, 10)
+            : null,
+          appointment_date: document.getElementById("a_date").value.trim(),
+          status: "pending"
+        };
+        
+        if (!body.appointment_date) {
+          alert("Please enter appointment date and time");
+          return;
+        }
+        
+        try {
+          const res = await fetch(`${API}/api/appointments`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const data = await res.json();
+          alert(data.message || data.error || "Appointment created successfully!");
+          
+          // Clear form
+          document.getElementById("a_nurse_id").value = "";
+          document.getElementById("a_date").value = "";
+          
+          // Reload appointments
+          document.getElementById("btnLoadAppointments").click();
+        } catch (e) {
+          alert("Error: " + e.message);
+        }
+      };
+
+      document.getElementById("btnLoadAppointments").onclick = async () => {
+        const tbody = document.getElementById("tblAppointments");
+        tbody.innerHTML = "<tr><td colspan='4' class='text-center'>Loading...</td></tr>";
+        
+        try {
+          // First try the specific patient endpoint
+          let res = await fetch(`${API}/api/appointments/patient/${user.id}`);
+          
+          if (!res.ok) {
+            // If that fails, try the general endpoint and filter
+            res = await fetch(`${API}/api/appointments`);
+          }
+          
+          const appointments = await res.json();
+          
+          // If we got all appointments, filter for this patient
+          const patientAppointments = Array.isArray(appointments) 
+            ? appointments.filter(apt => apt.patient_id == user.id)
+            : appointments;
+            
+          tbody.innerHTML = "";
+          
+          if (patientAppointments.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='4' class='text-center'>No appointments found</td></tr>";
+            return;
+          }
+          
+          patientAppointments.forEach((r) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${r.id}</td><td>${r.nurse_id ?? "Not assigned"}</td><td>${r.status}</td><td>${r.appointment_date ?? ""}</td>`;
+            tbody.appendChild(tr);
+          });
+        } catch (e) {
+          tbody.innerHTML = `<tr><td colspan='4' class='text-center text-danger'>Error loading appointments: ${e.message}</td></tr>`;
+        }
+      };
+      
+      // Load appointments when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById("btnLoadAppointments").click();
+      });
+      // Payment Functions for Patient
+document.getElementById("btnMakePayment").onclick = async () => {
+  const appointmentId = document.getElementById("p_appointment_id").value;
+  const amount = document.getElementById("p_amount").value;
+  const method = document.getElementById("p_method").value;
+
+  if (!appointmentId || !amount || !method) {
+    alert("Please fill all payment fields");
+    return;
+  }
+
+  const paymentData = {
+    appointment_id: parseInt(appointmentId),
+    patient_id: user.id,
+    amount: parseFloat(amount),
+    payment_method: method,
+    payment_type: "patient_to_admin",
+    status: "completed"
+  };
+
+  try {
+    const res = await fetch(`${API}/api/payments`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(paymentData),
+    });
+    
+    const data = await res.json();
+    
+    if (res.ok) {
+      alert("Payment completed successfully!");
+      
+      // Clear form
+      document.getElementById("p_appointment_id").value = "";
+      document.getElementById("p_amount").value = "";
+      document.getElementById("p_method").value = "";
+      
+      // Reload payment history
+      document.getElementById("btnLoadPayments").click();
+      
+      // Send notification
+      await sendPaymentNotification(user.id, appointmentId, amount);
+    } else {
+      alert("Payment failed: " + (data.error || "Unknown error"));
+    }
+  } catch (e) {
+    alert("Error: " + e.message);
+  }
+};
+
+document.getElementById("btnLoadPayments").onclick = async () => {
+  const container = document.getElementById("patientPaymentHistory");
+  container.innerHTML = "<div class='text-center'><i class='fas fa-spinner fa-spin'></i> Loading...</div>";
+  
+  try {
+    const res = await fetch(`${API}/api/payments/patient/${user.id}`);
+    const payments = await res.json();
+    
+    if (payments.length === 0) {
+      container.innerHTML = "<p class='text-muted'>No payment history found</p>";
+      return;
+    }
+    
+    let html = '';
+    payments.forEach(payment => {
+      html += `
+        <div class="border-bottom py-2">
+          <div class="d-flex justify-content-between">
+            <small><strong>Appointment #${payment.appointment_id}</strong></small>
+            <small class="text-success">$${payment.amount}</small>
+          </div>
+          <div class="d-flex justify-content-between">
+            <small class="text-muted">${payment.payment_method}</small>
+            <small class="text-muted">${new Date(payment.created_at).toLocaleDateString()}</small>
+          </div>
+          <small class="badge bg-success">${payment.status}</small>
+        </div>
+      `;
+    });
+    
+    container.innerHTML = html;
+  } catch (e) {
+    container.innerHTML = `<p class="text-danger">Error loading payments: ${e.message}</p>`;
+  }
+};
+
+async function sendPaymentNotification(patientId, appointmentId, amount) {
+  try {
+    await fetch(`${API}/api/notifications`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: patientId,
+        title: "Payment Successful",
+        message: `Your payment of $${amount} for appointment #${appointmentId} has been completed successfully.`,
+        type: "payment"
+      })
+    });
+  } catch (e) {
+    console.error("Failed to send notification:", e);
+  }
+}
+    </script>
+  </body>
+</html>

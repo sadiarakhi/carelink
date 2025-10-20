@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareLink - Home</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body { background: #f8fafc; }
+    .service-card {
+      border-radius: 12px;
+      padding: 30px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      text-decoration: none;
+      display: block;
+    }
+    .service-card:hover { transform: scale(1.05); text-decoration: none; }
+    footer { background: #1a1a2e; color: white; padding: 40px 0 20px; margin-top:50px; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: white; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top" style="background: linear-gradient(90deg,#764ba2,#667eea);">
+    <div class="container">
+      <a class="navbar-brand text-white fw-bold" href="index.html"><i class="fas fa-heart-pulse me-2"></i>CareLink</a>
+      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="services (2).html">Services</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="pricing_full.html">Pricing Plan</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="service-area (7).html">Service Area</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="pages/blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#oxygen-cylinder">Oxygen Cylinder</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="container" style="margin-top:100px;">
+    <h1 class="text-center mb-5">Welcome to CareLink</h1>
+  </div>
+
+  <!-- Our Gallery Section -->
+  <div class="container py-5" id="gallery">
+    <h2 class="text-center mb-5">Our Gallery</h2>
+    <div class="row g-4">
+      <!-- Nursing -->
+      <div class="col-md-4">
+        <a href="nursing.html" class="service-card" style="background: linear-gradient(135deg,#764ba2,#667eea);">
+          <i class="fas fa-user-nurse fa-2x mb-3"></i>
+          <h5>Professional Nursing Care</h5>
+        </a>
+      </div>
+      <!-- Home Care -->
+      <div class="col-md-4">
+        <a href="homecare.html" class="service-card" style="background: linear-gradient(135deg,#ff758c,#ff7eb3);">
+          <i class="fas fa-home fa-2x mb-3"></i>
+          <h5>Home Care Services</h5>
+        </a>
+      </div>
+      <!-- Rehabilitation -->
+      <div class="col-md-4">
+        <a href="rehabilitation.html" class="service-card" style="background: linear-gradient(135deg,#43cea2,#185a9d);">
+          <i class="fas fa-wheelchair fa-2x mb-3"></i>
+          <h5>Rehabilitation Center</h5>
+        </a>
+      </div>
+      <!-- Equipment -->
+      <div class="col-md-4">
+        <a href="equipment.html" class="service-card" style="background: linear-gradient(135deg,#11998e,#38ef7d);">
+          <i class="fas fa-stethoscope fa-2x mb-3"></i>
+          <h5>Medical Equipment</h5>
+        </a>
+      </div>
+      <!-- Palliative -->
+      <div class="col-md-4">
+        <a href="palliative.html" class="service-card" style="background: linear-gradient(135deg,#f7971e,#ffd200);">
+          <i class="fas fa-heart fa-2x mb-3"></i>
+          <h5>Palliative Care</h5>
+        </a>
+      </div>
+      <!-- Counseling -->
+      <div class="col-md-4">
+        <a href="counseling.html" class="service-card" style="background: linear-gradient(135deg,#8e9eab,#eef2f3); color:black;">
+          <i class="fas fa-users fa-2x mb-3"></i>
+          <h5>Family Counseling</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-3">
+          <h5><i class="fas fa-heart-pulse me-2"></i>CareLink</h5>
+          <p>Providing compassionate healthcare services with dignity, respect, and personalized attention for over 15 years.</p>
+        </div>
+        <div class="col-lg-4 mb-3">
+          <h6>Services</h6>
+          <a href="homecare.html">Home Care</a><br>
+          <a href="nursing.html">Skilled Nursing</a><br>
+          <a href="rehabilitation.html">Rehabilitation</a><br>
+          <a href="palliative.html">Palliative Care</a><br>
+          <a href="counseling.html">Family Support</a><br>
+          <a href="equipment.html">Medical Equipment</a>
+        </div>
+        <div class="col-lg-4 mb-3">
+          <h6>Contact Info</h6>
+          <p><i class="fas fa-phone"></i> +880 1234-567890</p>
+          <p><i class="fas fa-envelope"></i> info@carelink.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</p>
+        </div>
+      </div>
+      <hr style="border-color: rgba(255,255,255,0.2);" />
+      <div class="text-center">&copy; 2025 CareLink. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

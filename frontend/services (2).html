@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareLink - Our Services</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f8f9fa; }
+    .hero-section {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero-title { font-size: 3rem; font-weight: 700; }
+    .section-title { font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; }
+    .section-subtitle { font-size: 1.2rem; color: #6c757d; margin-bottom: 3rem; }
+    .service-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        margin-bottom: 30px;
+        color: #333;
+    }
+    .service-card:hover { transform: translateY(-10px); }
+    .service-card i { font-size: 2.5rem; color: #764ba2; margin-bottom: 1rem; }
+    .certificate-section {
+        background: white;
+        padding: 60px 20px;
+        text-align: center;
+    }
+    .certificate-section img {
+        max-width: 400px;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    .footer {
+        background: #1a1a2e;
+        color: white;
+        padding: 60px 0 30px;
+        margin-top: 50px;
+    }
+    .footer a { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
+    .footer a:hover { color: white; }
+    .social-links a {
+        display: inline-flex;
+        width: 40px; height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: white; align-items: center; justify-content: center;
+        margin-right: 10px; transition: all 0.3s ease;
+    }
+    .social-links a:hover { background: #764ba2; transform: translateY(-3px); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-transparent navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-heart-pulse me-2"></i>CareLink</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing_full.html">Pricing Plan</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#service-area">Service Area</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#oxygen-cylinder">Oxygen Cylinder</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Our Healthcare Services</h1>
+      <p class="lead">Comprehensive care solutions tailored to meet your family's needs.</p>
+    </div>
+  </section>
+  <!-- Certificate Section -->
+  <section class="certificate-section">
+    <h2 class="section-title">Our Certification</h2>
+    <p class="section-subtitle">We are a certified healthcare provider you can trust.</p>
+    <img src="D:\RAKHIBU\carelink (2)\carelink\carelink\frontend\img/certificate nurse.png" alt="Certificate">
+    <img src="D:\RAKHIBU\carelink (2)\carelink\carelink\frontend\img/certi 2.png" alt="Certificate">
+    <img src="D:\RAKHIBU\carelink (2)\carelink\carelink\frontend\img/certi 7.png" alt="Certificate">
+  </section>
+
+  <!-- Services Section -->
+  <section class="section-padding">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="service-card">
+            <i class="fas fa-home"></i>
+            <h4>Home Care Services</h4>
+            <p>Professional in-home healthcare services including nursing care, personal assistance, and medical support in the comfort of your own home.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-card">
+            <i class="fas fa-user-nurse"></i>
+            <h4>Skilled Nursing</h4>
+            <p>Qualified registered nurses providing medical care, medication management, wound care, and specialized treatment plans.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-card">
+            <i class="fas fa-wheelchair"></i>
+            <h4>Rehabilitation Services</h4>
+            <p>Physical therapy, occupational therapy, and speech therapy to help patients recover and maintain their independence.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-card">
+            <i class="fas fa-heart"></i>
+            <h4>Palliative Care</h4>
+            <p>Compassionate end-of-life care focused on comfort, dignity, and quality of life for patients and their families.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-card">
+            <i class="fas fa-clock"></i>
+            <h4>24/7 Support</h4>
+            <p>Round-the-clock availability for emergency situations and continuous monitoring of patient health and safety.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-card">
+            <i class="fas fa-users"></i>
+            <h4>Family Support</h4>
+            <p>Guidance and resources for family members, including education, emotional support, and care planning assistance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- Footer -->
+  <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="footer-brand">
+              <i class="fas fa-heart-pulse me-2"></i>CareLink
+            </div>
+            <p class="mb-4">
+              Providing compassionate healthcare services with dignity, respect,
+              and personalized attention for over 15 years.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Services</h5>
+            <div class="footer-links">
+              <a href="#services">Home Care</a>
+              <a href="#services">Skilled Nursing</a>
+              <a href="#services">Rehabilitation</a>
+              <a href="#services">Palliative Care</a>
+              <a href="#services">Family Support</a>
+              <a href="#oxygen-cylinder">Oxygen Cylinder</a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Company</h5>
+            <div class="footer-links">
+              <a href="#about">About Us</a>
+              <a href="#">Our Team</a>
+              <a href="#">Careers</a>
+              <a href="#">News</a>
+              <a href="#blog">Blog</a>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5 class="mb-3">Contact Info</h5>
+            <div class="footer-links">
+              <a href="tel:+8801234567890"
+                ><i class="fas fa-phone me-2"></i>+880 1234-567890</a
+              >
+              <a href="mailto:info@carelink.com"
+                ><i class="fas fa-envelope me-2"></i>info@carelink.com</a
+              >
+              <a href="#"
+                ><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a
+              >
+              <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+            </div>
+          </div>
+        </div>
+        <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">Privacy Policy | Terms of Service</p>
+          </div>
+        </div>
+      </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

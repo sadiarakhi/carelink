@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareLink - Admin Dashboard</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary-color: #06b6d4;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f8fafc;
+        --dark-text: #1e293b;
+        --light-text: #64748b;
+        --white: #ffffff;
+        --border-color: #e2e8f0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--light-bg);
+        color: var(--dark-text);
+        line-height: 1.6;
+      }
+
+      .sidebar {
+        min-height: 100vh;
+        background: var(--white);
+        border-right: 1px solid var(--border-color);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        width: 280px;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar-brand {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .brand-link {
+        text-decoration: none;
+        color: var(--dark-text);
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+      }
+
+      .brand-icon {
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+        font-size: 1.8rem;
+      }
+
+      .sidebar-nav {
+        padding: 1rem 0;
+      }
+
+      .nav-item {
+        margin: 0.25rem 0;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        color: var(--light-text);
+        text-decoration: none;
+        border-radius: 0;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background: linear-gradient(90deg, rgba(37, 99, 235, 0.1), transparent);
+        color: var(--primary-color);
+        border-right: 3px solid var(--primary-color);
+      }
+
+      .nav-link i {
+        width: 20px;
+        margin-right: 0.75rem;
+        text-align: center;
+      }
+
+      .main-content {
+        margin-left: 280px;
+        min-height: 100vh;
+        transition: margin-left 0.3s ease;
+      }
+
+      .topbar {
+        background: var(--white);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .topbar-left h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0;
+      }
+
+      .topbar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .admin-info {
+        display: flex;
+        align-items: center;
+        background: var(--light-bg);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        border: 1px solid var(--border-color);
+      }
+
+      .admin-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+
+      .content-area {
+        padding: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .stat-icon.users {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+      }
+
+      .stat-icon.appointments {
+        background: linear-gradient(45deg, var(--success-color), #059669);
+      }
+
+      .stat-icon.pending {
+        background: linear-gradient(45deg, var(--warning-color), #d97706);
+      }
+
+      .stat-icon.nurses {
+        background: linear-gradient(45deg, var(--secondary-color), #0891b2);
+      }
+
+      .stat-icon.blogs {
+        background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin: 0;
+      }
+
+      .stat-label {
+        color: var(--light-text);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .dashboard-card {
+        background: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+      }
+
+      .card-header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .card-title i {
+        margin-right: 0.5rem;
+        color: var(--primary-color);
+      }
+
+      .card-body {
+        padding: 2rem;
+      }
+
+      .btn-modern {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+        border: none;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        color: white;
+      }
+
+      .btn-logout {
+        background: linear-gradient(45deg, var(--danger-color), #dc2626);
+        border: none;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+      }
+
+      .btn-logout:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        color: white;
+      }
+
+      .table-modern {
+        background: transparent;
+      }
+
+      .table-modern thead th {
+        background: var(--light-bg);
+        color: var(--dark-text);
+        font-weight: 600;
+        border: none;
+        padding: 1rem;
+      }
+
+      .table-modern tbody tr {
+        border-bottom: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      .table-modern tbody tr:hover {
+        background: rgba(37, 99, 235, 0.05);
+      }
+
+      .table-modern tbody td {
+        padding: 1rem;
+        border: none;
+        vertical-align: middle;
+      }
+
+      .table-scroll-container {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 1rem;
+      }
+
+      .action-btn {
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border: none;
+        margin: 0 0.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .action-btn.approve {
+        background: var(--success-color);
+        color: white;
+      }
+
+      .action-btn.approve:hover {
+        background: #059669;
+        transform: translateY(-1px);
+      }
+
+      .action-btn.reschedule {
+        background: var(--warning-color);
+        color: white;
+      }
+
+      .action-btn.reschedule:hover {
+        background: #d97706;
+        transform: translateY(-1px);
+      }
+
+      .action-btn.cancel {
+        background: var(--danger-color);
+        color: white;
+      }
+
+      .action-btn.cancel:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+      }
+
+      .action-btn.delete {
+        background: #dc2626;
+        color: white;
+      }
+      .action-btn.delete:hover {
+        background: #b91c1c;
+      }
+
+      .action-btn.toggle {
+        background: #06b6d4;
+        color: white;
+      }
+      .action-btn.toggle:hover {
+        background: #0891b2;
+      }
+      .action-btn.assign {
+        background: #6366f1;
+        color: white;
+      }
+      .action-btn.assign:hover {
+        background: #4f46e5;
+      }
+
+      .action-btn.edit {
+        background: #8b5cf6;
+        color: white;
+      }
+      .action-btn.edit:hover {
+        background: #7c3aed;
+      }
+
+      .action-btn.view {
+        background: #06b6d4;
+        color: white;
+      }
+      .action-btn.view:hover {
+        background: #0891b2;
+      }
+
+      .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+
+      .status-badge.active,
+      .status-badge.approved,
+      .status-badge.paid,
+      .status-badge.published {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+      }
+
+      .status-badge.inactive,
+      .status-badge.cancelled {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--danger-color);
+      }
+
+      .status-badge.pending,
+      .status-badge.draft {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--warning-color);
+      }
+
+      .status-badge.rescheduled,
+      .status-badge.unassigned {
+        background: rgba(6, 182, 212, 0.1);
+        color: var(--secondary-color);
+      }
+
+      .role-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+
+      .role-badge.admin {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color);
+      }
+
+      .role-badge.nurse {
+        background: rgba(6, 182, 212, 0.1);
+        color: var(--secondary-color);
+      }
+
+      .role-badge.patient {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--light-text);
+      }
+
+      .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--border-color);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .blog-content-preview {
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .image-preview {
+        max-width: 100px;
+        max-height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-top: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+
+        .sidebar.show {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          padding: 1rem;
+        }
+
+        .content-area {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <a href="#" class="brand-link">
+          <i class="fas fa-heart-pulse brand-icon"></i>
+          CareLink
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item">
+          <a
+            href="#"
+            class="nav-link active"
+            onclick="showSection('dashboard')"
+          >
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" onclick="showSection('users')">
+            <i class="fas fa-users"></i>
+            Users
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" onclick="showSection('appointments')">
+            <i class="fas fa-calendar-check"></i>
+            Appointments
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" onclick="showSection('payments')">
+            <i class="fas fa-credit-card"></i>
+            Payments
+          </a>
+        </div>
+        <div class="nav-item">
+    <a href="#" class="nav-link" onclick="showSection('nursePayments')">
+      <i class="fas fa-money-bill-wave"></i>Nurse Payments</a>
+  </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" onclick="showSection('blogs')">
+            <i class="fas fa-blog"></i>
+            Blogs
+          </a>
+        </div>
+        <div class="nav-item">
+  <a href="#" class="nav-link" onclick="showSection('contactMessages')">
+    <i class="fas fa-envelope"></i>
+    Contact Messages
+  </a>
+</div>
+        <div class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-cog"></i>
+            Settings
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="btn btn-link d-lg-none" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Admin Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="admin-info">
+            <div class="admin-avatar" id="adminAvatar">A</div>
+            <span class="fw-medium" id="adminName">Admin</span>
+          </div>
+          <button class="btn btn-logout" id="btnLogout">
+            <i class="fas fa-sign-out-alt me-1"></i>
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div id="dashboardSection">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon users">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <h3 class="stat-number" id="totalUsers">0</h3>
+              <p class="stat-label">Total Users</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon appointments">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+              </div>
+              <h3 class="stat-number" id="totalAppointments">0</h3>
+              <p class="stat-label">Total Appointments</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon pending">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <h3 class="stat-number" id="pendingAppointments">0</h3>
+              <p class="stat-label">Pending Appointments</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon nurses">
+                  <i class="fas fa-user-nurse"></i>
+                </div>
+              </div>
+              <h3 class="stat-number" id="totalNurses">0</h3>
+              <p class="stat-label">Total Nurses</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon blogs">
+                  <i class="fas fa-blog"></i>
+                </div>
+              </div>
+              <h3 class="stat-number" id="totalBlogs">0</h3>
+              <p class="stat-label">Total Blogs</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card hidden" id="usersSection">
+          <div class="card-header">
+            <h5 class="card-title">
+              <i class="fas fa-users"></i>
+              Users Management
+            </h5>
+            <div class="d-flex align-items-center gap-2">
+              <div class="input-group" style="width: 250px">
+                <input
+                  type="text"
+                  id="userSearchInput"
+                  class="form-control"
+                  placeholder="Search users..."
+                />
+                <button class="btn btn-modern" id="btnSearchUsers">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <button class="btn btn-modern" id="btnCreateUser">
+                <i class="fas fa-user-plus me-1"></i>
+                Create User
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-scroll-container">
+              <div class="table-responsive">
+                <table class="table table-modern">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tblUsers">
+                    <tr>
+                      <td colspan="6" class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>Loading users...</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card hidden" id="appointmentsSection">
+          <div class="card-header">
+            <h5 class="card-title">
+              <i class="fas fa-calendar-check"></i>
+              Appointments Management
+            </h5>
+            <button class="btn btn-modern" id="btnLoadAppointments">
+              <i class="fas fa-sync me-1"></i>
+              Refresh Appointments
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-scroll-container">
+              <div class="table-responsive">
+                <table class="table table-modern">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Patient</th>
+                      <th>Nurse</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tblAppointments">
+                    <tr>
+                      <td colspan="6" class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>
+                          Click "Refresh Appointments" to load appointment data
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card hidden" id="paymentsSection">
+          <div class="card-header">
+            <h5 class="card-title">
+              <i class="fas fa-credit-card"></i>
+              Payment Monitoring
+            </h5>
+            <button class="btn btn-modern" id="btnLoadPayments">
+              <i class="fas fa-sync me-1"></i>
+              Refresh Payments
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-scroll-container">
+              <div class="table-responsive">
+                <table class="table table-modern">
+                  <thead>
+                    <tr>
+                      <th>Payment ID</th>
+                      <th>Patient ID</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="paymentsTableBody">
+                    <tr>
+                      <td colspan="5" class="empty-state">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <p>Click "Refresh Payments" to load payment data</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+<div class="dashboard-card hidden" id="nursePaymentsSection">
+    <div class="card-header">
+      <h5 class="card-title">
+        <i class="fas fa-money-bill-wave"></i>
+        Nurse Payments Management
+      </h5>
+      <div class="d-flex align-items-center gap-2">
+        <div class="btn-group">
+          <button class="btn btn-outline-primary btn-sm" onclick="loadNursePayments('all')">All</button>
+          <button class="btn btn-outline-warning btn-sm" onclick="loadNursePayments('pending')">Pending</button>
+          <button class="btn btn-outline-success btn-sm" onclick="loadNursePayments('paid')">Paid</button>
+        </div>
+        <button class="btn btn-modern" onclick="loadNursePayments()">
+          <i class="fas fa-sync me-1"></i>
+          Refresh
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-scroll-container">
+        <div class="table-responsive">
+          <table class="table table-modern">
+            <thead>
+              <tr>
+                <th>Nurse</th>
+                <th>Appointment</th>
+                <th>Service Fee</th>
+                <th>Commission</th>
+                <th>Nurse Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tblNursePayments">
+              <tr>
+                <td colspan="7" class="empty-state">
+                  <i class="fas fa-money-bill-wave"></i>
+                  <p>Click "Refresh" to load nurse payments</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-card hidden" id="contactMessagesSection">
+  <div class="card-header">
+    <h5 class="card-title">
+      <i class="fas fa-envelope"></i>
+      Contact Messages
+    </h5>
+    <button class="btn btn-modern" id="btnLoadContactMessages">
+      <i class="fas fa-sync me-1"></i>
+      Refresh Messages
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-scroll-container">
+      <div class="table-responsive">
+        <table class="table table-modern">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Service</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tblContactMessages">
+            <tr>
+              <td colspan="9" class="empty-state">
+                <i class="fas fa-envelope"></i>
+                <p>Click "Refresh Messages" to load contact messages</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+        <div class="dashboard-card hidden" id="blogsSection">
+          <div class="card-header">
+            <h5 class="card-title">
+              <i class="fas fa-blog"></i>
+              Blog Management
+            </h5>
+            <div class="d-flex align-items-center gap-2">
+              <div class="input-group" style="width: 250px">
+                <input
+                  type="text"
+                  id="blogCategoryFilter"
+                  class="form-control"
+                  placeholder="Filter by category..."
+                />
+                <button class="btn btn-modern" id="btnFilterBlogs">
+                  <i class="fas fa-filter"></i>
+                </button>
+              </div>
+              <button class="btn btn-modern" id="btnCreateSampleBlog">
+                <i class="fas fa-file-alt me-1"></i>
+                Create Sample Blog
+              </button>
+              <button class="btn btn-modern" id="btnCreateBlog">
+                <i class="fas fa-plus me-1"></i>
+                Create Blog
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-scroll-container">
+              <div class="table-responsive">
+                <table class="table table-modern">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>Category</th>
+                      <th>Excerpt</th>
+                      <th>Status</th>
+                      <th>Created</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tblBlogs">
+                    <tr>
+                      <td colspan="8" class="empty-state">
+                        <i class="fas fa-blog"></i>
+                        <p>Loading blogs...</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-card hidden" id="reportsSection">
+          <div class="card-header">
+            <h5 class="card-title">
+              <i class="fas fa-chart-line"></i>
+              Reports (Demo)
+            </h5>
+            <button class="btn btn-modern" id="btnLoadReports">
+              <i class="fas fa-sync me-1"></i>
+              Refresh Reports
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-scroll-container">
+              <div class="table-responsive">
+                <table class="table table-modern">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tblReports">
+                    <tr>
+                      <td colspan="4" class="empty-state">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Click "Refresh Reports" to load reports</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="customModal"
+      tabindex="-1"
+      aria-labelledby="modalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-xl">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title font-bold" id="modalTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p id="modalMessage"></p>
+            <div id="modalInputContainer" class="hidden">
+              <input
+                type="text"
+                id="modalInput"
+                class="form-control mt-3"
+                placeholder="YYYY-MM-DD HH:MM:SS"
+              />
+            </div>
+            <form id="createUserForm" class="hidden">
+              <div class="mb-3">
+                <label for="userName" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="userEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="userEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="userPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="userPassword"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="userRole" class="form-label">Role</label>
+                <select class="form-control" id="userRole">
+                  <option value="patient">Patient</option>
+                  <option value="nurse">Nurse</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+            </form>
+            <div id="assignNurseForm" class="hidden">
+              <div class="mb-3">
+                <label for="nurseSelect" class="form-label">Select Nurse</label>
+                <select class="form-control" id="nurseSelect"></select>
+              </div>
+            </div>
+            <form
+              id="createBlogForm"
+              class="hidden"
+              enctype="multipart/form-data"
+            >
+              <div class="mb-3">
+                <label for="blogTitle" class="form-label">Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="blogTitle"
+                  required
+                />
+              </div> <div class="mb-3">
+                <label for="blogContent" class="form-label">Content</label>
+                <div id="blogContentEditor" style="height: 200px"></div>
+                <textarea
+                  class="form-control hidden"
+                  id="blogContent"
+                  name="blogContent"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="blogExcerpt" class="form-label">Excerpt</label>
+                <textarea
+                  class="form-control"
+                  id="blogExcerpt"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="blogCategory" class="form-label">Category</label>
+                <input type="text" class="form-control" id="blogCategory" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Image or Gradient</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="imageOrGradient"
+                    id="uploadImage"
+                    value="image"
+                    checked
+                  />
+                  <label class="form-check-label" for="uploadImage">
+                    Upload Image
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="imageOrGradient"
+                    id="selectGradient"
+                    value="gradient"
+                  />
+                  <label class="form-check-label" for="selectGradient">
+                    Select Gradient
+                  </label>
+                </div>
+                <div id="imageUploadContainer" class="mt-2">
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="blogImageFile"
+                    accept="image/jpeg,image/png,image/gif"
+                  />
+                  <small class="form-text text-muted">
+                    Max 5MB, JPEG/PNG/GIF only
+                  </small>
+                </div>
+                <div id="gradientInputContainer" class="mt-2 hidden">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="blogGradient"
+                    placeholder="e.g., linear-gradient(135deg, #f093fb, #f5576c)"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="blogFullContent" class="form-label"
+                  >Full Content (HTML)</label
+                >
+                <div id="blogFullContentEditor" style="height: 200px"></div>
+                <textarea
+                  class="form-control hidden"
+                  id="blogFullContent"
+                  name="blogFullContent"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="blogDate" class="form-label"
+                  >Date (YYYY-MM-DD)</label
+                >
+                <input type="date" class="form-control" id="blogDate" />
+              </div>
+              <div class="mb-3">
+                <label for="blogAuthor" class="form-label">Author</label>
+                <select class="form-control" id="blogAuthor" required></select>
+              </div>
+              <div class="mb-3">
+                <label for="blogStatus" class="form-label">Status</label>
+                <select class="form-control" id="blogStatus" required>
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-modern" id="modalConfirmBtn">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div
+      class="modal fade"
+      id="extraModal"
+      tabindex="-1"
+      aria-labelledby="extraModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="extraModalTitle">Extra Demo Modal</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>This is an extra demo modal added for testing placement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+      const API_BASE_URL = "http://localhost:5000/api";
+      let currentUser = null;
+
+      // Demo Data (fallback if API not available)
+      const demoData = {
+        users: [
+          {id:1,name:'Alice Patient',email:'alice@example.com',role:'patient',status:'active'},
+          {id:2,name:'Nina Nurse',email:'nina@example.com',role:'nurse',status:'active'},
+          {id:3,name:'Admin User',email:'admin@example.com',role:'admin',status:'active'}
+        ],
+        appointments:[
+          {id:101,patient_name:'Alice Patient',nurse_name:'Nina Nurse',status:'pending',appointment_date:'2025-09-18 10:00'},
+          {id:102,patient_name:'Bob Patient',nurse_name:'Unassigned',status:'approved',appointment_date:'2025-09-19 15:00'}
+        ],
+        payments:[
+          {id:201,patient_name:'Alice Patient',amount:50,status:'paid',payment_date:'2025-09-16'},
+          {id:202,patient_name:'Bob Patient',amount:75,status:'pending',payment_date:'2025-09-17'}
+        ],
+        blogs:[
+          {id:301,title:'Welcome to CareLink',author_name:'Admin User',category:'General',excerpt:'Intro...',status:'published',created_at:'2025-09-15'},
+          {id:302,title:'Health Tips',author_name:'Nina Nurse',category:'Wellness',excerpt:'Tips...',status:'draft',created_at:'2025-09-14'}
+        ]
+      };
+
+      const quillContent = new Quill("#blogContentEditor", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline"],
+            ["link", "image"],
+            [{ list: "ordered" }, { list: "bullet" }],
+          ],
+        },
+      });
+      const quillFullContent = new Quill("#blogFullContentEditor", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline"],
+            ["link", "image"],
+            [{ list: "ordered" }, { list: "bullet" }],
+          ],
+        },
+      });
+
+      quillContent.on("text-change", () => {
+        document.getElementById("blogContent").value =
+          quillContent.root.innerHTML;
+      });
+      quillFullContent.on("text-change", () => {
+        document.getElementById("blogFullContent").value =
+          quillFullContent.root.innerHTML;
+      });
+
+      const customModal = new bootstrap.Modal(
+        document.getElementById("customModal"),
+        { backdrop: "static" }
+      );
+
+      document.getElementById("uploadImage").addEventListener("change", () => {
+        document
+          .getElementById("imageUploadContainer")
+          .classList.remove("hidden");
+        document
+          .getElementById("gradientInputContainer")
+          .classList.add("hidden");
+      });
+      document
+        .getElementById("selectGradient")
+        .addEventListener("change", () => {
+          document
+            .getElementById("imageUploadContainer")
+            .classList.add("hidden");
+          document
+            .getElementById("gradientInputContainer")
+            .classList.remove("hidden");
+        });
+
+      async function fetchWithAuth(url, options = {}) {
+        const token = localStorage.getItem("token");
+        if (!options.headers) options.headers = {};
+        options.headers["Authorization"] = `Bearer ${token}`;
+        try {
+          const response = await fetch(url, options);
+          if (response.status === 401 || response.status === 403) {
+            showModal(
+              "Error",
+              "You are not authorized. Please log in again.",
+              () => {
+                window.location.href = "/login.html";
+              }
+            );
+            throw new Error("Unauthorized");
+          }
+          return response;
+        } catch (error) {
+          console.error("API request failed:", error);
+          throw error;
+        }
+      }
+
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("show");
+      }
+
+      function showSection(section) {
+        document
+          .querySelectorAll(".dashboard-card, #dashboardSection")
+          .forEach((el) => {
+            el.classList.add("hidden");
+          });
+        document.getElementById(`${section}Section`).classList.remove("hidden");
+        document.querySelectorAll(".nav-link").forEach((el) => {
+          el.classList.remove("active");
+        });
+        document
+          .querySelector(`.nav-link[onclick="showSection('${section}')"]`)
+          .classList.add("active");
+        if (window.innerWidth <= 768) {
+          document.getElementById("sidebar").classList.remove("show");
+        }
+        if (section === "users") loadUsers();
+        if (section === "appointments") loadAppointments();
+        if (section === "payments") loadPayments();
+        if (section === "nursePayments") loadNursePayments(); 
+        if (section === "blogs") loadBlogs();
+        if (section === "contactMessages") loadContactMessages();
+      }
+
+      async function loadDashboardStats() {
+        try {
+          const response = await fetchWithAuth(
+            `${API_BASE_URL}/dashboard/stats`
+          );
+          const stats = await response.json();
+          document.getElementById("totalUsers").textContent = stats.totalUsers;
+          document.getElementById("totalAppointments").textContent =
+            stats.totalAppointments;
+          document.getElementById("pendingAppointments").textContent =
+            stats.pendingAppointments;
+          document.getElementById("totalNurses").textContent =
+            stats.totalNurses;
+          document.getElementById("totalBlogs").textContent = stats.totalBlogs;
+        } catch (err) {
+          console.error("Error loading dashboard stats:", err);
+          // Use demo data as fallback
+          document.getElementById("totalUsers").textContent = demoData.users.length;
+          document.getElementById("totalAppointments").textContent = demoData.appointments.length;
+          document.getElementById("pendingAppointments").textContent = 
+            demoData.appointments.filter(a => a.status === 'pending').length;
+          document.getElementById("totalNurses").textContent = 
+            demoData.users.filter(u => u.role === 'nurse').length;
+          document.getElementById("totalBlogs").textContent = demoData.blogs.length;
+        }
+      }
+
+      async function loadUsers(searchTerm = "") {
+        const tbody = document.getElementById("tblUsers");
+        tbody.innerHTML =
+          '<tr><td colspan="6" class="empty-state"><i class="fas fa-users"></i><p>Loading users...</p></td></tr>';
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/users`);
+          const users = await response.json();
+          renderUsers(users, searchTerm);
+        } catch (err) {
+          console.error("Error loading users:", err);
+          renderUsers(demoData.users, searchTerm);
+        }
+      }
+
+      function renderUsers(users, searchTerm) {
+        const tbody = document.getElementById("tblUsers");
+        const filteredUsers = users.filter(
+          (user) =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        tbody.innerHTML = "";
+        if (filteredUsers.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="empty-state">
+                <i class="fas fa-users"></i>
+                <p>No users found</p>
+              </td>
+            </tr>`;
+          return;
+        }
+        filteredUsers.forEach((user) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td><span class="role-badge ${user.role}">${user.role}</span></td>
+            <td><span class="status-badge ${user.status}">${user.status}</span></td>
+            <td>
+              <button class="action-btn toggle" onclick="toggleUserStatus(${user.id})">
+                Toggle Status
+              </button>
+              <button class="action-btn delete" onclick="deleteUser(${user.id})">
+                Delete
+              </button>
+            </td>`;
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function loadAppointments() {
+        const tbody = document.getElementById("tblAppointments");
+        tbody.innerHTML =
+          '<tr><td colspan="6" class="empty-state"><i class="fas fa-calendar-alt"></i><p>Loading appointments...</p></td></tr>';
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/appointments`);
+          const appointments = await response.json();
+          renderAppointments(appointments);
+        } catch (err) {
+          console.error("Error loading appointments:", err);
+          renderAppointments(demoData.appointments);
+        }
+      }
+
+      function renderAppointments(appointments) {
+        const tbody = document.getElementById("tblAppointments");
+        tbody.innerHTML = "";
+        if (appointments.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="empty-state">
+                <i class="fas fa-calendar-alt"></i>
+                <p>No appointments found</p>
+              </td>
+            </tr>`;
+          return;
+        }
+        appointments.forEach((appt) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${appt.id}</td>
+            <td>${appt.patient_name || "Unknown"}</td>
+            <td>${appt.nurse_name || "Unassigned"}</td>
+            <td><span class="status-badge ${appt.status}">${
+            appt.status
+          }</span></td>
+            <td>${new Date(appt.appointment_date).toLocaleString()}</td>
+            <td>
+              ${
+                appt.status === "pending"
+                  ? `<button class="action-btn approve" onclick="approveAppointment(${appt.id})">Approve</button>`
+                  : ""
+              }
+              <button class="action-btn reschedule" onclick="rescheduleAppointment(${
+                appt.id
+              })">Reschedule</button>
+              <button class="action-btn cancel" onclick="cancelAppointment(${
+                appt.id
+              })">Cancel</button>
+              ${
+                appt.status === "unassigned"
+                  ? `<button class="action-btn assign" onclick="assignNurse(${appt.id})">Assign Nurse</button>`
+                  : ""
+              }
+            </td>`;
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function loadPayments() {
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/payments`);
+          const payments = await response.json();
+          renderPayments(payments);
+        } catch (err) {
+          console.error("Error loading payments:", err);
+          renderPayments(demoData.payments);
+        }
+      }
+
+      function renderPayments(payments) {
+        const tableBody = document.getElementById("paymentsTableBody");
+        tableBody.innerHTML = "";
+        if (payments.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="5" class="empty-state">
+                <i class="fas fa-money-bill-wave"></i>
+                <p>No payments found</p>
+              </td>
+            </tr>`;
+          return;
+        }
+        payments.forEach((p) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.patient_name}</td>
+            <td>$${p.amount}</td>
+            <td><span class="status-badge ${p.status}">${p.status}</span></td>
+            <td>${new Date(p.payment_date).toLocaleString()}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      }
+
+      async function loadBlogs(category = "") {
+        const tbody = document.getElementById("tblBlogs");
+        tbody.innerHTML =
+          '<tr><td colspan="8" class="empty-state"><i class="fas fa-blog"></i><p>Loading blogs...</p></td></tr>';
+        try {
+          const url = category
+            ? `${API_BASE_URL}/blogs?category=${encodeURIComponent(category)}`
+            : `${API_BASE_URL}/blogs`;
+          const response = await fetchWithAuth(url);
+          const blogs = await response.json();
+          renderBlogs(blogs, category);
+        } catch (err) {
+          console.error("Error loading blogs:", err);
+          renderBlogs(demoData.blogs, category);
+        }
+      }
+
+      function renderBlogs(blogs, category) {
+        const tbody = document.getElementById("tblBlogs");
+        const filteredBlogs = category 
+          ? blogs.filter(blog => blog.category === category)
+          : blogs;
+          
+        tbody.innerHTML = "";
+        if (filteredBlogs.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="empty-state">
+                <i class="fas fa-blog"></i>
+                <p>No blogs found</p>
+              </td>
+            </tr>`;
+          return;
+        }
+        filteredBlogs.forEach((blog) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${blog.id}</td>
+            <td>${blog.title}</td>
+            <td>${blog.author_name}</td>
+            <td>${blog.category || "N/A"}</td>
+            <td class="blog-content-preview">${blog.excerpt || "N/A"}</td>
+            <td><span class="status-badge ${blog.status}">${
+              blog.status
+            }</span></td>
+            <td>${new Date(blog.created_at).toLocaleString()}</td>
+            <td>
+              <button class="action-btn view" onclick="viewBlog(${
+                blog.id
+              })">View</button>
+              <button class="action-btn edit" onclick="editBlog(${
+                blog.id
+              })">Edit</button>
+              <button class="action-btn delete" onclick="deleteBlog(${
+                blog.id
+              })">Delete</button>
+            </td>`;
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function toggleUserStatus(userId) {
+        try {
+          const response = await fetchWithAuth(
+            `${API_BASE_URL}/users/${userId}`
+          );
+          const user = await response.json();
+          const newStatus = user.status === "active" ? "inactive" : "active";
+          await fetchWithAuth(`${API_BASE_URL}/users/${userId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: newStatus }),
+          });
+          loadUsers(document.getElementById("userSearchInput").value);
+          loadDashboardStats();
+        } catch (err) {
+          console.error("Error toggling user status:", err);
+          showModal("Error", "Failed to toggle user status");
+        }
+      }
+
+      async function deleteUser(userId) {
+        showModal(
+          "Confirm Delete",
+          "Are you sure you want to delete this user?",
+          async () => {
+            try {
+              await fetchWithAuth(`${API_BASE_URL}/users/${userId}`, {
+                method: "DELETE",
+              });
+              loadUsers(document.getElementById("userSearchInput").value);
+              loadDashboardStats();
+              customModal.hide();
+            } catch (err) {
+              console.error("Error deleting user:", err);
+              showModal("Error", "Failed to delete user");
+            }
+          }
+        );
+      }
+
+      async function approveAppointment(appointmentId) {
+        try {
+          await fetchWithAuth(`${API_BASE_URL}/appointments/${appointmentId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "approved" }),
+          });
+          loadAppointments();
+          loadDashboardStats();
+        } catch (err) {
+          console.error("Error approving appointment:", err);
+          showModal("Error", "Failed to approve appointment");
+        }
+      }
+
+      async function rescheduleAppointment(appointmentId) {
+        showModal(
+          "Reschedule Appointment",
+          "Enter new date and time (YYYY-MM-DD HH:MM:SS):",
+          async () => {
+            const newDate = document.getElementById("modalInput").value;
+            if (newDate) {
+              try {
+                await fetchWithAuth(
+                  `${API_BASE_URL}/appointments/${appointmentId}`,
+                  {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      appointment_date: newDate,
+                      status: "rescheduled",
+                    }),
+                  }
+                );
+                loadAppointments();
+                loadDashboardStats();
+                customModal.hide();
+              } catch (err) {
+                console.error("Error rescheduling appointment:", err);
+                showModal("Error", "Failed to reschedule appointment");
+              }
+            }
+          },
+          true
+        );
+      }
+
+      async function cancelAppointment(appointmentId) {
+        showModal(
+          "Confirm Cancel",
+          "Are you sure you want to cancel this appointment?",
+          async () => {
+            try {
+              await fetchWithAuth(
+                `${API_BASE_URL}/appointments/${appointmentId}`,
+                {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ status: "cancelled" }),
+                }
+              );
+              loadAppointments();
+              loadDashboardStats();
+              customModal.hide();
+            } catch (err) {
+              console.error("Error cancelling appointment:", err);
+              showModal("Error", "Failed to cancel appointment");
+            }
+          }
+        );
+      }
+
+      async function assignNurse(appointmentId) {
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/users`);
+          const users = await response.json();
+          const nurses = users.filter(
+            (u) => u.role === "nurse" && u.status === "active"
+          );
+          const nurseSelect = document.getElementById("nurseSelect");
+          nurseSelect.innerHTML = nurses
+            .map((u) => `<option value="${u.id}">${u.name}</option>`)
+            .join("");
+          showModal(
+            "Assign Nurse",
+            "",
+            async () => {
+              const selectedNurseId = nurseSelect.value;
+              if (selectedNurseId) {
+                try {
+                  await fetchWithAuth(
+                    `${API_BASE_URL}/appointments/${appointmentId}`,
+                    {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        nurse_id: selectedNurseId,
+                        status: "pending",
+                      }),
+                    }
+                  );
+                  loadAppointments();
+                  loadDashboardStats();
+                  customModal.hide();
+                } catch (err) {
+                  console.error("Error assigning nurse:", err);
+                  showModal("Error", "Failed to assign nurse");
+                }
+              }
+            },
+            false,
+            "assignNurseForm"
+          );
+        } catch (err) {
+          console.error("Error loading nurses:", err);
+          showModal("Error", "Failed to load nurses");
+        }
+      }
+
+      async function createUser() {
+        showModal(
+          "Create User",
+          "",
+          async () => {
+            const form = document.getElementById("createUserForm");
+            if (form.checkValidity()) {
+              const userData = {
+                name: document.getElementById("userName").value,
+                email: document.getElementById("userEmail").value,
+                password: document.getElementById("userPassword").value,
+                role: document.getElementById("userRole").value,
+              };
+              try {
+                await fetchWithAuth(`${API_BASE_URL}/users`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(userData),
+                });
+                loadUsers();
+                loadDashboardStats();
+                customModal.hide();
+              } catch (err) {
+                console.error("Error creating user:", err);
+                showModal("Error", "Failed to create user");
+              }
+            } else {
+              form.reportValidity();
+            }
+          },
+          false,
+          "createUserForm"
+        );
+      }
+
+      async function createBlog() {
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/users`);
+          const users = await response.json();
+          const authors = users.filter(
+            (u) => u.role === "admin" || u.role === "nurse"
+          );
+          const authorSelect = document.getElementById("blogAuthor");
+          authorSelect.innerHTML = authors
+            .map((u) => `<option value="${u.id}">${u.name}</option>`)
+            .join("");
+          document.getElementById("blogTitle").value = "";
+          quillContent.root.innerHTML = "";
+          quillFullContent.root.innerHTML = "";
+          document.getElementById("blogExcerpt").value = "";
+          document.getElementById("blogCategory").value = "";
+          document.getElementById("blogImageFile").value = "";
+          document.getElementById("blogGradient").value = "";
+          document.getElementById("blogDate").value = "";
+          document.getElementById("blogStatus").value = "draft";
+          document.getElementById("uploadImage").checked = true;
+          document
+            .getElementById("imageUploadContainer")
+            .classList.remove("hidden");
+          document
+            .getElementById("gradientInputContainer")
+            .classList.add("hidden");
+          showModal(
+            "Create Blog",
+            "",
+            async () => {
+              const form = document.getElementById("createBlogForm");
+              if (form.checkValidity()) {
+                const formData = new FormData();
+                formData.append(
+                  "title",
+                  document.getElementById("blogTitle").value
+                );
+                formData.append("content", quillContent.root.innerHTML);
+                formData.append(
+                  "excerpt",
+                  document.getElementById("blogExcerpt").value || null
+                );
+                formData.append(
+                  "category",
+                  document.getElementById("blogCategory").value || null
+                );
+                formData.append(
+                  "fullContent",
+                  quillFullContent.root.innerHTML || null
+                );
+                formData.append(
+                  "date",
+                  document.getElementById("blogDate").value || null
+                );
+                formData.append(
+                  "author_id",
+                  document.getElementById("blogAuthor").value
+                );
+                formData.append(
+                  "status",
+                  document.getElementById("blogStatus").value
+                );
+                const isImage = document.getElementById("uploadImage").checked;
+                if (isImage) {
+                  const imageFile =
+                    document.getElementById("blogImageFile").files[0];
+                  if (imageFile) {
+                    formData.append("image", imageFile);
+                  }
+                } else {
+                  const gradient =
+                    document.getElementById("blogGradient").value;
+                  if (gradient) {
+                    formData.append("image", gradient);
+                  }
+                }
+                try {
+                  const response = await fetchWithAuth(
+                    `${API_BASE_URL}/blogs`,
+                    {
+                      method: "POST",
+                      body: formData,
+                    }
+                  );
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || "Failed to create blog");
+                  }
+                  loadBlogs();
+                  loadDashboardStats();
+                  customModal.hide();
+                } catch (err) {
+                  console.error("Error creating blog:", err);
+                  showModal("Error", `Failed to create blog: ${err.message}`);
+                }
+              } else {
+                form.reportValidity();
+              }
+            },
+            false,
+            "createBlogForm"
+          );
+        } catch (err) {
+          console.error("Error loading authors:", err);
+          showModal("Error", "Failed to load authors");
+        }
+      }
+
+      async function editBlog(blogId) {
+        try {
+          const response = await fetchWithAuth(
+            `${API_BASE_URL}/blogs/${blogId}`
+          );
+          const blog = await response.json();
+          const usersResponse = await fetchWithAuth(`${API_BASE_URL}/users`);
+          const users = await usersResponse.json();
+          const authors = users.filter(
+            (u) => u.role === "admin" || u.role === "nurse"
+          );
+          document.getElementById("blogTitle").value = blog.title;
+          quillContent.root.innerHTML = blog.content;
+          quillFullContent.root.innerHTML = blog.fullContent || "";
+          document.getElementById("blogExcerpt").value = blog.excerpt || "";
+          document.getElementById("blogCategory").value = blog.category || "";
+          document.getElementById("blogDate").value = blog.date || "";
+          const authorSelect = document.getElementById("blogAuthor");
+          authorSelect.innerHTML = authors
+            .map(
+              (u) =>
+                `<option value="${u.id}" ${
+                  u.id === blog.author_id ? "selected" : ""
+                }>${u.name}</option>`
+            )
+            .join("");
+          document.getElementById("blogStatus").value = blog.status;
+          document.getElementById("blogImageFile").value = "";
+          document.getElementById("blogGradient").value = "";
+          const isImage = blog.image && blog.image.startsWith("/uploads/");
+          document.getElementById("uploadImage").checked = isImage;
+          document.getElementById("selectGradient").checked = !isImage;
+          document
+            .getElementById("imageUploadContainer")
+            .classList.toggle("hidden", !isImage);
+          document
+            .getElementById("gradientInputContainer")
+            .classList.toggle("hidden", isImage);
+          if (!isImage) {
+            document.getElementById("blogGradient").value = blog.image || "";
+          }
+          showModal(
+            "Edit Blog",
+            "",
+            async () => {
+              const form = document.getElementById("createBlogForm");
+              if (form.checkValidity()) {
+                const formData = new FormData();
+                formData.append(
+                  "title",
+                  document.getElementById("blogTitle").value
+                );
+                formData.append("content", quillContent.root.innerHTML);
+                formData.append(
+                  "excerpt",
+                  document.getElementById("blogExcerpt").value || null
+                );
+                formData.append(
+                  "category",
+                  document.getElementById("blogCategory").value || null
+                );
+                formData.append(
+                  "fullContent",
+                  quillFullContent.root.innerHTML || null
+                );
+                formData.append(
+                  "date",
+                  document.getElementById("blogDate").value || null
+                );
+                formData.append(
+                  "author_id",
+                  document.getElementById("blogAuthor").value
+                );
+                formData.append(
+                  "status",
+                  document.getElementById("blogStatus").value
+                );
+                const isImage = document.getElementById("uploadImage").checked;
+                if (isImage) {
+                  const imageFile =
+                    document.getElementById("blogImageFile").files[0];
+                  if (imageFile) {
+                    formData.append("image", imageFile);
+                  }
+                } else {
+                  const gradient =
+                    document.getElementById("blogGradient").value;
+                  if (gradient) {
+                    formData.append("image", gradient);
+                  }
+                }
+                try {
+                  const response = await fetchWithAuth(
+                    `${API_BASE_URL}/blogs/${blogId}`,
+                    {
+                      method: "PUT",
+                      body: formData,
+                    }
+                  );
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || "Failed to update blog");
+                  }
+                  loadBlogs();
+                  customModal.hide();
+                } catch (err) {
+                  console.error("Error updating blog:", err);
+                  showModal("Error", `Failed to update blog: ${err.message}`);
+                }
+              } else {
+                form.reportValidity();
+              }
+            },
+            false,
+            "createBlogForm"
+          );
+        } catch (err) {
+          console.error("Error loading blog:", err);
+          showModal("Error", "Failed to load blog");
+        }
+      }
+
+      async function viewBlog(blogId) {
+        try {
+          const response = await fetchWithAuth(
+            `${API_BASE_URL}/blogs/${blogId}`
+          );
+          const blog = await response.json();
+          const isImage = blog.image && blog.image.startsWith("/uploads/");
+          const imageDisplay = isImage
+            ? `<img src="${blog.image}" alt="Blog Image" class="image-preview" />`
+            : `<div style="width: 100px; height: 50px; background: ${blog.image}; border-radius: 5px;"></div>`;
+          showModal(
+            blog.title,
+            `
+            <p><strong>Content:</strong> ${blog.content}</p>
+            ${
+              blog.fullContent
+                ? `<p><strong>Full Content:</strong> ${blog.fullContent}</p>`
+                : ""
+            }
+            ${
+              blog.excerpt
+                ? `<p><strong>Excerpt:</strong> ${blog.excerpt}</p>`
+                : ""
+            }
+            ${
+              blog.category
+                ? `<p><strong>Category:</strong> ${blog.category}</p>`
+                : ""
+            }
+            <p><strong>Author:</strong> ${blog.author_name}</p>
+            <p><strong>Status:</strong> ${blog.status}</p>
+            ${blog.date ? `<p><strong>Date:</strong> ${blog.date}</p>` : ""}
+            <p><strong>Created:</strong> ${new Date(
+              blog.created_at
+            ).toLocaleString()}</p>
+            ${
+              blog.image
+                ? `<p><strong>Image/Gradient:</strong> ${imageDisplay}</p>`
+                : ""
+            }
+            `,
+            () => {
+              customModal.hide();
+            }
+          );
+        } catch (err) {
+          console.error("Error viewing blog:", err);
+          showModal("Error", "Failed to view blog");
+        }
+      }
+
+      async function deleteBlog(blogId) {
+        showModal(
+          "Confirm Delete",
+          "Are you sure you want to delete this blog?",
+          async () => {
+            try {
+              await fetchWithAuth(`${API_BASE_URL}/blogs/${blogId}`, {
+                method: "DELETE",
+              });
+              loadBlogs();
+              loadDashboardStats();
+              customModal.hide();
+            } catch (err) {
+              console.error("Error deleting blog:", err);
+              showModal("Error", "Failed to delete blog");
+            }
+          }
+        );
+      }
+async function loadNursePayments(status = 'all') {
+  try {
+    const payments = await fetchNursePayments(status);
+    
+    const tbody = document.getElementById("tblNursePayments");
+    
+    if (payments.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="7" class="empty-state">
+            <i class="fas fa-money-bill-wave"></i>
+            <p>No ${status === 'all' ? '' : status} payments found</p>
+          </td>
+        </tr>`;
+      return;
+    }
+    
+    tbody.innerHTML = payments.map(payment => `
+      <tr>
+        <td>${payment.nurse_name || 'Nurse #' + payment.nurse_id}</td>
+        <td>Appointment #${payment.appointment_id}</td>
+        <td>$${payment.service_amount}</td>
+        <td>${payment.commission_percentage}%</td>
+        <td>$${payment.nurse_amount}</td>
+        <td><span class="status-badge ${payment.payment_status}">${payment.payment_status}</span></td>
+        <td>
+          ${payment.payment_status === 'pending' ? 
+            `<button class="action-btn approve" onclick="payNurse(${payment.id})">Pay Now</button>` : 
+            '<span class="text-success"><i class="fas fa-check"></i> Paid</span>'
+          }
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error("Error loading nurse payments:", err);
+    showModal("Error", "Failed to load nurse payments");
+  }
+}
+
+async function payNurse(paymentId) {
+  try {
+    await fetchWithAuth(`${API_BASE_URL}/nurse-payments/pay`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nurse_payment_id: paymentId })
+    });
+    
+    loadNursePayments(); // Refresh table
+    showModal("Success", "Nurse payment completed successfully!");
+  } catch (err) {
+    showModal("Error", "Failed to pay nurse");
+  }
+}
+      async function createSampleBlog() {
+        try {
+          // Create a sample blog using the regular blog creation endpoint
+          const sampleBlog = {
+            title: "Sample Blog Post",
+            content: "<p>This is a sample blog post created for demonstration purposes.</p>",
+            excerpt: "A sample blog post for demonstration",
+            category: "General",
+            author_id: 1, // Assuming admin user ID is 1
+            status: "published"
+          };
+          
+          await fetchWithAuth(`${API_BASE_URL}/blogs`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(sampleBlog),
+          });
+          loadBlogs();
+          loadDashboardStats();
+          showModal("Success", "Sample blog created successfully");
+        } catch (err) {
+          console.error("Error creating sample blog:", err);
+          showModal("Error", "Failed to create sample blog");
+        }
+      }
+
+      function showModal(
+        title,
+        message,
+        confirmCallback,
+        showInput = false,
+        formId = null
+      ) {
+        document.getElementById("modalTitle").textContent = title;
+        document.getElementById("modalMessage").innerHTML = message;
+        document
+          .getElementById("modalInputContainer")
+          .classList.toggle("hidden", !showInput);
+        document.getElementById("createUserForm").classList.add("hidden");
+        document.getElementById("assignNurseForm").classList.add("hidden");
+        document.getElementById("createBlogForm").classList.add("hidden");
+        if (formId) {
+          document.getElementById(formId).classList.remove("hidden");
+        }
+        const confirmBtn = document.getElementById("modalConfirmBtn");
+        confirmBtn.onclick = confirmCallback;
+        customModal.show();
+      }
+
+      document
+        .getElementById("btnCreateUser")
+        .addEventListener("click", createUser);
+      document
+        .getElementById("btnSearchUsers")
+        .addEventListener("click", () => {
+          loadUsers(document.getElementById("userSearchInput").value);
+        });
+      document
+        .getElementById("btnLoadAppointments")
+        .addEventListener("click", loadAppointments);
+      document
+        .getElementById("btnLoadPayments")
+        .addEventListener("click", loadPayments);
+      document
+        .getElementById("btnCreateBlog")
+        .addEventListener("click", createBlog);
+      document
+        .getElementById("btnCreateSampleBlog")
+        .addEventListener("click", createSampleBlog);
+      document
+        .getElementById("btnFilterBlogs")
+        .addEventListener("click", () => {
+          const category = document.getElementById("blogCategoryFilter").value;
+          loadBlogs(category);
+        });
+      document.getElementById("btnLogout").addEventListener("click", () => {
+        showModal("Confirm Logout", "Are you sure you want to logout?", () => {
+          localStorage.removeItem("token");
+          currentUser = null;
+          document.getElementById("adminName").textContent = "Admin";
+          document.getElementById("adminAvatar").textContent = "A";
+          customModal.hide();
+          alert("Logged out successfully");
+        });
+      });
+
+      async function loadReports() {
+        const tbody = document.getElementById("tblReports");
+        tbody.innerHTML = '<tr><td colspan="4" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading reports...</p></td></tr>';
+        setTimeout(() => {
+          tbody.innerHTML = `
+            <tr><td>401</td><td>Monthly Activity</td><td><span class="status-badge approved">approved</span></td><td>${new Date().toLocaleString()}</td></tr>
+            <tr><td>402</td><td>Pending Approvals</td><td><span class="status-badge pending">pending</span></td><td>${new Date().toLocaleString()}</td></tr>
+          `;
+        }, 1000);
+      }
+
+      document
+        .getElementById("btnLoadReports")
+        .addEventListener("click", loadReports);
+      // Nurse Payments Functions
+      async function fetchNursePayments(status = 'all') {
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/nurse-payments?status=${status}`);
+          const payments = await response.json();
+          return payments;
+        } catch (error) {
+          console.error('Error fetching payments:', error);
+          return [];
+        }
+      }
+
+      async function fetchMyPayments(nurseId, status = 'all') {
+        try {
+          const response = await fetchWithAuth(`${API_BASE_URL}/nurse-payments/nurse/${nurseId}?status=${status}`);
+          const payments = await response.json();
+          return payments;
+        } catch (error) {
+          console.error('Error fetching my payments:', error);
+          return [];
+        }
+      }
+      // Contact Messages Functions - localStorage version
+async function loadContactMessages() {
+  const tbody = document.getElementById("tblContactMessages");
+  tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><i class="fas fa-envelope"></i><p>Loading contact messages...</p></td></tr>';
+  
+  try {
+    // Get messages from localStorage
+    const messages = getContactMessagesFromStorage();
+    renderContactMessages(messages);
+  } catch (err) {
+    console.error("Error loading contact messages:", err);
+    // Demo fallback data
+    const demoMessages = [
+      {
+        id: 1,
+        name: "John Doe",
+        email: "john@example.com",
+        phone: "+880123456789",
+        service: "home-care",
+        message: "Interested in home care services for my elderly mother.",
+        status: "new",
+        created_at: "2025-01-15T10:30:00Z"
+      },
+      {
+        id: 2,
+        name: "Sarah Smith",
+        email: "sarah@example.com",
+        phone: "+880987654321",
+        service: "oxygen-cylinder",
+        message: "Need oxygen cylinder delivery as soon as possible.",
+        status: "responded",
+        created_at: "2025-01-14T15:45:00Z"
+      },
+      {
+        id: 3,
+        name: "Michael Brown",
+        email: "michael@example.com",
+        phone: "+880112233445",
+        service: "ambulance",
+        message: "Urgent ambulance service required for patient transfer.",
+        status: "new",
+        created_at: "2025-01-16T08:20:00Z"
+      }
+    ];
+    // Save demo messages to localStorage for first time use
+    saveMessagesToStorage(demoMessages);
+    renderContactMessages(demoMessages);
+  }
+}
+
+// Get messages from localStorage
+function getContactMessagesFromStorage() {
+  const messages = localStorage.getItem('carelink_contact_messages');
+  return messages ? JSON.parse(messages) : [];
+}
+
+// Save messages to localStorage
+function saveMessagesToStorage(messages) {
+  localStorage.setItem('carelink_contact_messages', JSON.stringify(messages));
+}
+
+function renderContactMessages(messages) {
+  const tbody = document.getElementById("tblContactMessages");
+  tbody.innerHTML = "";
+  
+  if (messages.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="9" class="empty-state">
+          <i class="fas fa-envelope"></i>
+          <p>No contact messages found</p>
+        </td>
+      </tr>`;
+    return;
+  }
+  
+  // Sort by date (newest first)
+  messages.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  
+  messages.forEach((message) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${message.id}</td>
+      <td>${message.name}</td>
+      <td>${message.email}</td>
+      <td>${message.phone}</td>
+      <td>${message.service}</td>
+      <td class="blog-content-preview">${message.message || 'No message'}</td>
+      <td><span class="status-badge ${message.status}">${message.status}</span></td>
+      <td>${new Date(message.created_at).toLocaleString()}</td>
+      <td>
+        <button class="action-btn view" onclick="viewContactMessage(${message.id})">View</button>
+        <button class="action-btn toggle" onclick="toggleMessageStatus(${message.id})">Toggle Status</button>
+        <button class="action-btn delete" onclick="deleteContactMessage(${message.id})">Delete</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function viewContactMessage(messageId) {
+  try {
+    const messages = getContactMessagesFromStorage();
+    const message = messages.find(msg => msg.id === messageId);
+    
+    if (!message) {
+      showModal("Error", "Message not found");
+      return;
+    }
+    
+    showModal(
+      `Message from ${message.name}`,
+      `
+      <p><strong>Email:</strong> ${message.email}</p>
+      <p><strong>Phone:</strong> ${message.phone}</p>
+      <p><strong>Service:</strong> ${message.service}</p>
+      <p><strong>Status:</strong> ${message.status}</p>
+      <p><strong>Date:</strong> ${new Date(message.created_at).toLocaleString()}</p>
+      <hr>
+      <p><strong>Message:</strong></p>
+      <p>${message.message || 'No message provided'}</p>
+      `,
+      () => {
+        customModal.hide();
+      }
+    );
+  } catch (err) {
+    console.error("Error viewing message:", err);
+    showModal("Error", "Failed to load message details");
+  }
+}
+
+async function toggleMessageStatus(messageId) {
+  try {
+    const messages = getContactMessagesFromStorage();
+    const messageIndex = messages.findIndex(msg => msg.id === messageId);
+    
+    if (messageIndex === -1) {
+      showModal("Error", "Message not found");
+      return;
+    }
+    
+    // Toggle status
+    messages[messageIndex].status = messages[messageIndex].status === "new" ? "responded" : "new";
+    
+    // Save back to localStorage
+    saveMessagesToStorage(messages);
+    
+    loadContactMessages();
+    showModal("Success", "Message status updated successfully");
+  } catch (err) {
+    console.error("Error toggling message status:", err);
+    showModal("Error", "Failed to update message status");
+  }
+}
+
+async function deleteContactMessage(messageId) {
+  showModal(
+    "Confirm Delete",
+    "Are you sure you want to delete this contact message?",
+    async () => {
+      try {
+        const messages = getContactMessagesFromStorage();
+        const filteredMessages = messages.filter(msg => msg.id !== messageId);
+        
+        // Save back to localStorage
+        saveMessagesToStorage(filteredMessages);
+        
+        loadContactMessages();
+        customModal.hide();
+        showModal("Success", "Message deleted successfully");
+      } catch (err) {
+        console.error("Error deleting message:", err);
+        showModal("Error", "Failed to delete message");
+      }
+    }
+  );
+}
+
+// Event listener for Refresh button
+document.getElementById("btnLoadContactMessages").addEventListener("click", loadContactMessages);
+      // Initialize the dashboard
+      loadDashboardStats();
+      showSection("dashboard");
+    </script>
+  </body>
+</html>

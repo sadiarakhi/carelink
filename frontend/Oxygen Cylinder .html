@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareLink - Oxygen Cylinder Services</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #06b6d4;
+      --light-bg: #f8fafc;
+      --dark-text: #1e293b;
+      --light-text: #64748b;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      line-height: 1.6;
+      color: var(--dark-text);
+    }
+
+    .hero-section {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-title { 
+      font-size: 3rem; 
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-padding {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--light-text);
+      margin-bottom: 3rem;
+    }
+
+    .oxygen-feature {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .oxygen-feature:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .oxygen-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      background: linear-gradient(45deg, #06b6d4, #0891b2);
+    }
+
+    .cylinder-types {
+      background: var(--light-bg);
+      border-radius: 15px;
+      padding: 3rem;
+    }
+
+    .type-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 1.5rem;
+    }
+
+    .type-card h5 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .btn-hero {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+      color: white;
+    }
+
+    .footer {
+      background: #1a1a2e;
+      color: white;
+      padding: 60px 0 30px;
+    }
+
+    .footer-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--primary-color);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-transparent navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-heart-pulse me-2"></i>CareLink</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="services (2).html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing_full.html">Pricing Plan</a></li>
+          <li class="nav-item"><a class="nav-link" href="service-area (7).html">Service Area</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="oxygen-cylinder.html">Oxygen Cylinder</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+          <li class="nav-item">
+            <a href="pages/register.html" class="btn btn-hero btn-xs">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Oxygen Cylinder Services</h1>
+      <p class="lead">24/7 Medical Grade Oxygen Delivery for Your Respiratory Needs</p>
+    </div>
+  </section>
+
+  <!-- Oxygen Features Section -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="section-title">Professional Oxygen Therapy Solutions</h2>
+          <p class="section-subtitle">
+            Reliable oxygen therapy solutions for patients requiring respiratory support at home or in medical facilities.
+          </p>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-lg-3 col-md-6">
+          <div class="oxygen-feature">
+            <div class="oxygen-icon">
+              <i class="fas fa-lungs"></i>
+            </div>
+            <h5>Medical Grade Oxygen</h5>
+            <p>
+              Pure, medical-grade oxygen cylinders meeting international safety standards.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="oxygen-feature">
+            <div class="oxygen-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h5>Home Delivery</h5>
+            <p>
+              Fast and reliable delivery service available 24/7 across Dhaka metropolitan area.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="oxygen-feature">
+            <div class="oxygen-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <h5>Equipment Setup</h5>
+            <p>
+              Professional installation and setup of oxygen delivery systems by trained technicians.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="oxygen-feature">
+            <div class="oxygen-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <h5>Emergency Support</h5>
+            <p>
+              Round-the-clock emergency support for urgent oxygen needs and technical assistance.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cylinder Types -->
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="cylinder-types">
+            <h3 class="text-center mb-4">Available Cylinder Types</h3>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="type-card">
+                  <h5>Small (2L)</h5>
+                  <p>Duration: 4-6 hours</p>
+                  <p>Portable & Lightweight</p>
+                  <p><strong>৳ 500/day</strong></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="type-card">
+                  <h5>Medium (5L)</h5>
+                  <p>Duration: 10-12 hours</p>
+                  <p>Standard Home Use</p>
+                  <p><strong>৳ 800/day</strong></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="type-card">
+                  <h5>Large (10L)</h5>
+                  <p>Duration: 20-24 hours</p>
+                  <p>Hospital Grade</p>
+                  <p><strong>৳ 1,200/day</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="contact.html" class="btn btn-hero btn-lg">Request Oxygen Service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="footer-brand">
+            <i class="fas fa-heart-pulse me-2"></i>CareLink
+          </div>
+          <p class="mb-4">
+            Providing compassionate healthcare services with dignity, respect,
+            and personalized attention for over 15 years.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3">Services</h5>
+          <div class="footer-links">
+            <a href="services (2).html">Home Care</a>
+            <a href="services (2).html">Skilled Nursing</a>
+            <a href="services (2).html">Rehabilitation</a>
+            <a href="services (2).html">Palliative Care</a>
+            <a href="services (2).html">Family Support</a>
+            <a href="oxygen-cylinder.html">Oxygen Cylinder</a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3">Company</h5>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="#">Our Team</a>
+            <a href="#">Careers</a>
+            <a href="#">News</a>
+            <a href="pages/blog.html">Blog</a>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <h5 class="mb-3">Contact Info</h5>
+          <div class="footer-links">
+            <a href="tel:+8801234567890"><i class="fas fa-phone me-2"></i>+880 1234-567890</a>
+            <a href="mailto:info@carelink.com"><i class="fas fa-envelope me-2"></i>info@carelink.com</a>
+            <a href="#"><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a>
+            <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+          </div>
+        </div>
+      </div>
+      <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0">Privacy Policy | Terms of Service</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareLink - Blog</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary-color: #06b6d4;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f8fafc;
+        --dark-text: #1e293b;
+        --light-text: #64748b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-text);
+      }
+
+      .navbar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #764ba2 !important;
+        transform: translateY(-2px);
+      }
+
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background: #764ba2;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+      }
+
+      .navbar-nav .nav-link.active {
+        color: #764ba2 !important;
+        font-weight: 600;
+      }
+
+      .navbar-nav .nav-link.active::after {
+        width: 100%;
+        left: 0;
+        background: #764ba2;
+      }
+
+      .hero-section {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 50vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .floating-icon {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.1);
+        font-size: 2rem;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .breadcrumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        display: inline-flex;
+        animation: fadeInUp 1s ease-out 0.6s both;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .breadcrumb-item a:hover {
+        color: white;
+      }
+
+      .breadcrumb-item.active {
+        color: white;
+        font-weight: 600;
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 3rem;
+      }
+
+      .blog-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .blog-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .blog-content {
+        padding: 1.5rem;
+      }
+
+      .blog-date {
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .blog-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0.5rem 0;
+      }
+
+      .blog-excerpt {
+        color: var(--light-text);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .blog-meta {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin: 5px 0;
+      }
+      .blog-meta i {
+        margin-right: 5px;
+      }
+
+      .sidebar {
+        background: var(--light-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .sidebar h5 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: 1.5rem;
+      }
+
+      .recent-post {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .recent-post:hover {
+        transform: translateX(5px);
+      }
+
+      .recent-post img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-right: 1rem;
+      }
+
+      .recent-post h6 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0;
+      }
+
+      .recent-post span {
+        font-size: 0.85rem;
+        color: var(--light-text);
+      }
+
+      .category-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .category-list li {
+        margin-bottom: 0.75rem;
+      }
+
+      .category-list a {
+        color: var(--dark-text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .category-list a:hover {
+        color: var(--primary-color);
+      }
+
+      .pagination {
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .pagination .page-link {
+        color: var(--primary-color);
+        border-radius: 8px;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+      }
+
+      .pagination .page-link:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .pagination .page-item.active .page-link {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .pagination .page-item.disabled .page-link {
+        color: var(--light-text);
+        cursor: not-allowed;
+      }
+
+      .footer {
+        background: #1a1a2e;
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      .contact-info {
+        background: var(--light-bg);
+        border-radius: 15px;
+        padding: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html"
+          ><i class="fas fa-heart-pulse me-2"></i>CareLink</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#pricing">Pricing Plan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#service-area"
+                >Service Area</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#oxygen-cylinder"
+                >Oxygen Cylinder</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#contact">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section d-flex align-items-center">
+      <div class="hero-overlay"></div>
+      <div class="floating-elements">
+        <i
+          class="fas fa-user-nurse floating-icon"
+          style="top: 10%; left: 10%; animation-delay: 0s"
+        ></i>
+        <i
+          class="fas fa-heartbeat floating-icon"
+          style="top: 20%; right: 15%; animation-delay: 2s"
+        ></i>
+        <i
+          class="fas fa-stethoscope floating-icon"
+          style="bottom: 30%; left: 20%; animation-delay: 4s"
+        ></i>
+        <i
+          class="fas fa-pills floating-icon"
+          style="bottom: 20%; right: 10%; animation-delay: 1s"
+        ></i>
+        <i
+          class="fas fa-hospital floating-icon"
+          style="top: 50%; left: 5%; animation-delay: 3s"
+        ></i>
+      </div>
+      <div class="container hero-content">
+        <div class="text-center">
+          <h1 class="hero-title">CareLink Blog</h1>
+          <p class="hero-subtitle">
+            Stay informed with the latest healthcare tips, news, and insights
+            from our medical experts.
+          </p>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Blog</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" class="section-padding bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div id="blog-list">
+     
+            </div>
+            <nav aria-label="Blog pagination">
+              <ul class="pagination" id="pagination">
+        
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-4">
+            <div class="sidebar mb-4">
+              <h5>Recent Posts</h5>
+              <div id="recent-posts">
+         
+              </div>
+            </div>
+            <div class="sidebar">
+              <h5>Categories</h5>
+              <ul class="category-list" id="category-list">
+           
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="footer-brand">
+              <i class="fas fa-heart-pulse me-2"></i>CareLink
+            </div>
+            <p class="mb-4">
+              Providing compassionate healthcare services with dignity, respect,
+              and personalized attention for over 15 years.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Services</h5>
+            <div class="footer-links">
+              <a href="index.html#services">Home Care</a>
+              <a href="index.html#services">Skilled Nursing</a>
+              <a href="index.html#services">Rehabilitation</a>
+              <a href="index.html#services">Palliative Care</a>
+              <a href="index.html#services">Family Support</a>
+              <a href="index.html#oxygen-cylinder">Oxygen Cylinder</a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Company</h5>
+            <div class="footer-links">
+              <a href="index.html#about">About Us</a>
+              <a href="#">Our Team</a>
+              <a href="#">Careers</a>
+              <a href="#">News</a>
+              <a href="blog.html">Blog</a>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5 class="mb-3">Contact Info</h5>
+            <div class="footer-links">
+              <a href="tel:+8801234567890"
+                ><i class="fas fa-phone me-2"></i>+880 1234-567890</a
+              >
+              <a href="mailto:info@carelink.com"
+                ><i class="fas fa-envelope me-2"></i>info@carelink.com</a
+              >
+              <a href="#"
+                ><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a
+              >
+              <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+            </div>
+          </div>
+        </div>
+        <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">Privacy Policy | Terms of Service</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const API_BASE = "http://localhost:5000";
+      const postsPerPage = 3;
+      let currentPage = 1;
+      let currentCategory = null;
+      let allPosts = [];
+
+    
+      async function fetchPosts() {
+        try {
+          const res = await fetch(`${API_BASE}/api/blogs`);
+          if (!res.ok) throw new Error("Failed to fetch posts");
+          const posts = await res.json();
+
+          
+          const categories = [
+            ...new Set(posts.map((post) => post.category).filter((cat) => cat)),
+          ].map((category) => ({
+            name: category,
+            slug: category.toLowerCase().replace(/\s+/g, "-"),
+          }));
+
+          return {
+            posts,
+            categories:
+              categories.length > 0
+                ? categories
+                : [
+                    { name: "Senior Care", slug: "senior-care" },
+                    { name: "Home Care", slug: "home-care" },
+                    { name: "Health Tips", slug: "health-tips" },
+                    { name: "Rehabilitation", slug: "rehabilitation" },
+                    { name: "Palliative Care", slug: "palliative-care" },
+                  ],
+          };
+        } catch (err) {
+          console.error("Error fetching posts:", err);
+          return {
+            posts: [],
+            categories: [
+              { name: "Senior Care", slug: "senior-care" },
+              { name: "Home Care", slug: "home-care" },
+              { name: "Health Tips", slug: "health-tips" },
+              { name: "Rehabilitation", slug: "rehabilitation" },
+              { name: "Palliative Care", slug: "palliative-care" },
+            ],
+          };
+        }
+      }
+
+      function formatDateTime(dateString) {
+        const options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        };
+        return new Date(dateString).toLocaleString("en-US", options);
+      }
+
+      function displayPosts(page, posts) {
+        const blogList = document.getElementById("blog-list");
+        blogList.innerHTML = "";
+
+        const start = (page - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const paginatedPosts = posts.slice(start, end);
+
+        paginatedPosts.forEach((post) => {
+          const postElement = document.createElement("div");
+          postElement.className = "blog-card";
+
+          let imageSection;
+          if (post.image && !post.image.startsWith("linear-gradient")) {
+            imageSection = `
+              <div style="width: 100%; height: 200px; 
+                background: url(${API_BASE}${post.image}) center/cover no-repeat; 
+                border-radius: 10px;">
+              </div>
+            `;
+          } else {
+            imageSection = `
+              <div style="width: 100%; height: 200px; 
+                background: ${
+                  post.image || "linear-gradient(135deg, #667eea, #764ba2)"
+                };
+                display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px;">
+                <i class="fas fa-heartbeat" style="font-size: 3rem"></i>
+              </div>
+            `;
+          }
+
+          postElement.innerHTML = `
+            ${imageSection}
+            <div class="blog-content">
+              <div class="blog-date">${formatDateTime(post.date)}</div>
+              <h5 class="blog-title">${post.title}</h5>
+              <p class="blog-excerpt">${post.excerpt}</p>
+              <div class="blog-meta">
+                <span><i class="fas fa-user"></i> ${
+                  post.author_name || "Admin"
+                }</span> | 
+                <span><i class="fas fa-folder-open"></i> ${
+                  post.category || "General"
+                }</span>
+              </div>
+              <a href="blog-post.html?id=${post.id}" class="text-primary">
+                Read More <i class="fas fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          `;
+          blogList.appendChild(postElement);
+        });
+        updatePagination(posts);
+      }
+
+      function updatePagination(posts) {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+        const pageCount = Math.ceil(posts.length / postsPerPage);
+
+ 
+        const prevItem = document.createElement("li");
+        prevItem.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
+        prevItem.innerHTML = `<a class="page-link" href="#">Previous</a>`;
+        prevItem.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (currentPage > 1) {
+            currentPage--;
+            const filteredPosts = currentCategory
+              ? allPosts.filter(
+                  (post) =>
+                    post.category &&
+                    post.category.toLowerCase().replace(/\s+/g, "-") ===
+                      currentCategory
+                )
+              : allPosts;
+            displayPosts(currentPage, filteredPosts);
+            updateURL();
+          }
+        });
+        pagination.appendChild(prevItem);
+
+     
+        for (let i = 1; i <= pageCount; i++) {
+          const pageItem = document.createElement("li");
+          pageItem.className = `page-item ${i === currentPage ? "active" : ""}`;
+          pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+          pageItem.addEventListener("click", (e) => {
+            e.preventDefault();
+            currentPage = i;
+            const filteredPosts = currentCategory
+              ? allPosts.filter(
+                  (post) =>
+                    post.category &&
+                    post.category.toLowerCase().replace(/\s+/g, "-") ===
+                      currentCategory
+                )
+              : allPosts;
+            displayPosts(currentPage, filteredPosts);
+            updateURL();
+          });
+          pagination.appendChild(pageItem);
+        }
+
+        const nextItem = document.createElement("li");
+        nextItem.className = `page-item ${
+          currentPage === pageCount ? "disabled" : ""
+        }`;
+        nextItem.innerHTML = `<a class="page-link" href="#">Next</a>`;
+        nextItem.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (currentPage < pageCount) {
+            currentPage++;
+            const filteredPosts = currentCategory
+              ? allPosts.filter(
+                  (post) =>
+                    post.category &&
+                    post.category.toLowerCase().replace(/\s+/g, "-") ===
+                      currentCategory
+                )
+              : allPosts;
+            displayPosts(currentPage, filteredPosts);
+            updateURL();
+          }
+        });
+        pagination.appendChild(nextItem);
+      }
+
+      function displayRecentPosts(posts) {
+        const recentPosts = document.getElementById("recent-posts");
+        recentPosts.innerHTML = "";
+        const recent = posts.slice(0, 3);
+
+        recent.forEach((post) => {
+          const postElement = document.createElement("div");
+          postElement.className = "recent-post";
+
+          const bgDiv = document.createElement("div");
+          bgDiv.style.width = "60px";
+          bgDiv.style.height = "60px";
+          bgDiv.style.borderRadius = "10px";
+          bgDiv.style.marginRight = "10px";
+
+          if (post.image && !post.image.startsWith("linear-gradient")) {
+            bgDiv.style.backgroundImage = `url(${API_BASE}${post.image})`;
+            bgDiv.style.backgroundSize = "cover";
+            bgDiv.style.backgroundPosition = "center";
+          } else {
+            bgDiv.style.background =
+              "linear-gradient(135deg, #667eea, #764ba2)";
+          }
+
+          const contentDiv = document.createElement("div");
+          contentDiv.innerHTML = `
+            <h6>
+              <a href="blog-post.html?id=${
+                post.id
+              }" class="text-dark text-decoration-none">
+                ${post.title}
+              </a>
+            </h6>
+            <span>${formatDateTime(post.date)}</span>
+            <div class="blog-meta">
+              <span><i class="fas fa-user"></i> ${
+                post.author_name || "Admin"
+              }</span> | 
+              <span><i class="fas fa-folder-open"></i> ${
+                post.category || "General"
+              }</span>
+            </div>
+          `;
+
+          postElement.appendChild(bgDiv);
+          postElement.appendChild(contentDiv);
+          recentPosts.appendChild(postElement);
+        });
+      }
+
+      async function renderCategories(categories) {
+        const categoryList = document.getElementById("category-list");
+        categoryList.innerHTML = "";
+
+      
+        const allLi = document.createElement("li");
+        allLi.className = "category-item";
+        allLi.innerHTML = `
+          <a href="blog.html" class="text-dark text-decoration-none" data-category="all">
+            All
+          </a>
+        `;
+        categoryList.appendChild(allLi);
+
+        categories.forEach((category) => {
+          const li = document.createElement("li");
+          li.className = "category-item";
+          li.innerHTML = `
+            <a href="blog.html?category=${category.slug}" class="text-dark text-decoration-none" data-category="${category.slug}">
+              ${category.name}
+            </a>
+          `;
+          categoryList.appendChild(li);
+        });
+
+  
+        document.querySelectorAll(".category-list a").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const category = e.target.getAttribute("data-category");
+            currentCategory = category === "all" ? null : category;
+            currentPage = 1;
+            const filteredPosts = currentCategory
+              ? allPosts.filter(
+                  (post) =>
+                    post.category &&
+                    post.category.toLowerCase().replace(/\s+/g, "-") ===
+                      currentCategory
+                )
+              : allPosts;
+            displayPosts(currentPage, filteredPosts);
+            updateURL();
+          });
+        });
+      }
+
+      function updateURL() {
+        const url = new URL(window.location);
+        url.searchParams.set("page", currentPage);
+        if (currentCategory) {
+          url.searchParams.set("category", currentCategory);
+        } else {
+          url.searchParams.delete("category");
+        }
+        window.history.pushState({}, "", url);
+      }
+
+      function setActiveNavLink() {
+        const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          const href = link.getAttribute("href").split("#")[0];
+          if (href === "blog.html") {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        const navLinks = document.querySelectorAll(".nav-link, .navbar-brand");
+
+        if (window.scrollY > 100) {
+          navbar.style.background = "rgba(255, 255, 255, 0.95)";
+          navbar.style.backdropFilter = "blur(10px)";
+          navLinks.forEach((link) => {
+            if (!link.classList.contains("active")) {
+              link.style.color = "rgba(50, 100, 255, 0.8)";
+            }
+          });
+        } else {
+          navbar.style.background = "rgba(255, 255, 255, 0.1)";
+          navbar.style.backdropFilter = "blur(10px)";
+          navLinks.forEach((link) => {
+            if (!link.classList.contains("active")) {
+              link.style.color = "rgba(255, 255, 255, 0.8)";
+            }
+          });
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        currentPage = parseInt(urlParams.get("page")) || 1;
+        currentCategory = urlParams.get("category");
+
+        const { posts, categories } = await fetchPosts();
+        allPosts = posts;
+
+        const filteredPosts = currentCategory
+          ? allPosts.filter(
+              (post) =>
+                post.category &&
+                post.category.toLowerCase().replace(/\s+/g, "-") ===
+                  currentCategory
+            )
+          : allPosts;
+
+        displayPosts(currentPage, filteredPosts);
+        displayRecentPosts(allPosts);
+        renderCategories(categories);
+        setActiveNavLink();
+      });
+    </script>
+  </body>
+</html>

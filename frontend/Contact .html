@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareLink - Contact Us</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #06b6d4;
+      --light-bg: #f8fafc;
+      --dark-text: #1e293b;
+      --light-text: #64748b;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      line-height: 1.6;
+      color: var(--dark-text);
+    }
+
+    .hero-section {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-title { 
+      font-size: 3rem; 
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-padding {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--light-text);
+      margin-bottom: 3rem;
+    }
+
+    .contact-info {
+      background: var(--light-bg);
+      border-radius: 15px;
+      padding: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+    }
+
+    .contact-form {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-hero {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+      color: white;
+    }
+
+    .map-container {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .footer {
+      background: #1a1a2e;
+      color: white;
+      padding: 60px 0 30px;
+    }
+
+    .footer-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--primary-color);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-transparent navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-heart-pulse me-2"></i>CareLink</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="services (2).html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing_full.html">Pricing Plan</a></li>
+          <li class="nav-item"><a class="nav-link" href="service-area (7).html">Service Area</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="oxygen-cylinder.html">Oxygen Cylinder</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact Us</a></li>
+          <li class="nav-item">
+            <a href="pages/register.html" class="btn btn-hero btn-xs">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Contact CareLink</h1>
+      <p class="lead">Get in Touch for Compassionate Healthcare Solutions</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-subtitle">
+            Ready to learn more about our services? Contact us today for a free consultation.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="contact-info">
+            <h4 class="mb-4">Contact Information</h4>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div>
+                <h6>24/7 Helpline</h6>
+                <p class="mb-0">+880 1234-567890</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h6>Email Us</h6>
+                <p class="mb-0">info@carelink.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h6>Visit Us</h6>
+                <p class="mb-0">Dhaka, Bangladesh</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <h6>Working Hours</h6>
+                <p class="mb-0">24/7 Available</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <h5>Emergency Contact</h5>
+            <p>For urgent medical assistance, call our emergency line:</p>
+            <h4 class="text-danger">+880 1711-223344</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="contact-form">
+            <h4 class="mb-4">Send us a Message</h4>
+            <form id="contactForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="name" placeholder="Full Name" required>
+                </div>
+                <div class="col-md-6">
+                  <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
+                </div>
+              </div>
+              <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+              <select class="form-control" id="service" required>
+                <option value="">Select Service Needed</option>
+                <option value="home-care">Home Care Services</option>
+                <option value="skilled-nursing">Skilled Nursing</option>
+                <option value="rehabilitation">Rehabilitation Services</option>
+                <option value="palliative">Palliative Care</option>
+                <option value="oxygen-cylinder">Oxygen Cylinder Services</option>
+                <option value="other">Other</option>
+              </select>
+              <textarea class="form-control" id="message" rows="4" placeholder="Tell us about your care needs..." required></textarea>
+              <button type="submit" class="btn btn-hero btn-lg w-100">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="map-container">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.78943623627!2d90.3936149750488!3d23.750830088777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8bd552c2b3b%3A0x4e70f117856138f!2sDhaka!5e0!3m2!1sen!2sbd!4v1698765432107!5m2!1sen!2sbd" 
+              width="100%" 
+              height="400" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="footer-brand">
+            <i class="fas fa-heart-pulse me-2"></i>CareLink
+          </div>
+          <p class="mb-4">
+            Providing compassionate healthcare services with dignity, respect,
+            and personalized attention for over 15 years.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3">Services</h5>
+          <div class="footer-links">
+            <a href="services (2).html">Home Care</a>
+            <a href="services (2).html">Skilled Nursing</a>
+            <a href="services (2).html">Rehabilitation</a>
+            <a href="services (2).html">Palliative Care</a>
+            <a href="services (2).html">Family Support</a>
+            <a href="oxygen-cylinder.html">Oxygen Cylinder</a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="mb-3">Company</h5>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="#">Our Team</a>
+            <a href="#">Careers</a>
+            <a href="#">News</a>
+            <a href="pages/blog.html">Blog</a>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <h5 class="mb-3">Contact Info</h5>
+          <div class="footer-links">
+            <a href="tel:+8801234567890"><i class="fas fa-phone me-2"></i>+880 1234-567890</a>
+            <a href="mailto:info@carelink.com"><i class="fas fa-envelope me-2"></i>info@carelink.com</a>
+            <a href="#"><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a>
+            <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+          </div>
+        </div>
+      </div>
+      <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0">Privacy Policy | Terms of Service</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const service = document.getElementById('service').value;
+        const message = document.getElementById('message').value;
+        const submitBtn = this.querySelector('button[type="submit"]');
+
+        if (!name || !phone || !email || !service) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Show loading state
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        // Create message object
+        const contactMessage = {
+            id: Date.now(), // Unique ID
+            name: name,
+            email: email,
+            phone: phone,
+            service: service,
+            message: message,
+            status: 'new',
+            created_at: new Date().toISOString()
+        };
+
+        // Save to localStorage
+        saveContactMessage(contactMessage);
+
+        // Show success message
+        setTimeout(() => {
+            alert('Thank you for your message! We will contact you within 24 hours.');
+            document.getElementById('contactForm').reset();
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+        }, 1000);
+    });
+
+    // Save message to localStorage
+    function saveContactMessage(message) {
+        // Get existing messages from localStorage
+        const existingMessages = JSON.parse(localStorage.getItem('carelink_contact_messages') || '[]');
+        
+        // Add new message
+        existingMessages.push(message);
+        
+        // Save back to localStorage
+        localStorage.setItem('carelink_contact_messages', JSON.stringify(existingMessages));
+        
+        console.log('Message saved:', message);
+    }
+  </script>
+</body>
+</html>

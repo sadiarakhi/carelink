@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareLink - Login / Register</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary-color: #06b6d4;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f8fafc;
+        --dark-text: #1e293b;
+        --light-text: #64748b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-text);
+      }
+
+      .navbar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link.active {
+        color: #764ba2 !important;
+        transform: translateY(-2px);
+      }
+
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background: #764ba2;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover::after,
+      .navbar-nav .nav-link.active::after {
+        width: 100%;
+        left: 0;
+      }
+
+      .btn-hero {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 15px 35px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        color: white;
+      }
+
+      .hero-section {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 50vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .floating-icon {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.1);
+        font-size: 2rem;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .breadcrumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        display: inline-flex;
+        animation: fadeInUp 1s ease-out 0.6s both;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .breadcrumb-item a:hover {
+        color: white;
+      }
+
+      .breadcrumb-item.active {
+        color: white;
+        font-weight: 600;
+      }
+
+      .section-padding {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 3rem;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-body {
+        padding: 2.5rem;
+      }
+
+      .card-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: var(--dark-text);
+      }
+
+      .form-control,
+      .form-select {
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 0.75rem 1rem;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+      }
+
+      .footer {
+        background: #1a1a2e;
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html"
+          ><i class="fas fa-heart-pulse me-2"></i>CareLink</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#pricing">Pricing Plan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#service-area"
+                >Service Area</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#oxygen-cylinder"
+                >Oxygen Cylinder</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#contact">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link active">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section d-flex align-items-center">
+      <div class="hero-overlay"></div>
+      <div class="floating-elements">
+        <i
+          class="fas fa-user-nurse floating-icon"
+          style="top: 10%; left: 10%; animation-delay: 0s"
+        ></i>
+        <i
+          class="fas fa-heartbeat floating-icon"
+          style="top: 20%; right: 15%; animation-delay: 2s"
+        ></i>
+        <i
+          class="fas fa-stethoscope floating-icon"
+          style="bottom: 30%; left: 20%; animation-delay: 4s"
+        ></i>
+        <i
+          class="fas fa-pills floating-icon"
+          style="bottom: 20%; right: 10%; animation-delay: 1s"
+        ></i>
+        <i
+          class="fas fa-hospital floating-icon"
+          style="top: 50%; left: 5%; animation-delay: 3s"
+        ></i>
+      </div>
+      <div class="container hero-content">
+        <div class="text-center">
+          <h1 class="hero-title">Login or Register</h1>
+          <p class="hero-subtitle">
+            Access your CareLink account or create a new one to manage your
+            healthcare services.
+          </p>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Login / Register
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding bg-light">
+      <div class="container">
+        <div class="row g-4">
+      
+          <div class="col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Register</h5>
+                <div class="mb-3">
+                  <label for="r_name" class="form-label">Name</label>
+                  <input
+                    class="form-control"
+                    id="r_name"
+                    placeholder="Enter your name"
+                    
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="r_email" class="form-label">Email</label>
+                  <input
+                    class="form-control"
+                    id="r_email"
+                    placeholder="Enter your email"
+                    
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="r_password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="r_password"
+                    placeholder="Enter your password"
+                    
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="r_role" class="form-label">Role</label>
+                  <select class="form-select" id="r_role">
+                    <option value="patient">Patient</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+                <button class="btn btn-hero w-100" id="btnRegister">
+                  Register
+                </button>
+              </div>
+            </div>
+          </div>
+
+       
+          <div class="col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Login</h5>
+                <div class="mb-3">
+                  <label for="l_email" class="form-label">Email</label>
+                  <input
+                    class="form-control"
+                    id="l_email"
+                    placeholder="Enter your email"
+                    
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="l_password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="l_password"
+                    placeholder="Enter your password"
+                    
+                  />
+                </div>
+                <button class="btn btn-hero w-100" id="btnLogin">Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="footer-brand">
+              <i class="fas fa-heart-pulse me-2"></i>CareLink
+            </div>
+            <p class="mb-4">
+              Providing compassionate healthcare services with dignity, respect,
+              and personalized attention for over 15 years.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Services</h5>
+            <div class="footer-links">
+              <a href="../index.html#services">Home Care</a>
+              <a href="../index.html#services">Skilled Nursing</a>
+              <a href="../index.html#services">Rehabilitation</a>
+              <a href="../index.html#services">Palliative Care</a>
+              <a href="../index.html#services">Family Support</a>
+              <a href="../index.html#oxygen-cylinder">Oxygen Cylinder</a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4">
+            <h5 class="mb-3">Company</h5>
+            <div class="footer-links">
+              <a href="../index.html#about">About Us</a>
+              <a href="#">Our Team</a>
+              <a href="#">Careers</a>
+              <a href="#">News</a>
+              <a href="./blog.html">Blog</a>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5 class="mb-3">Contact Info</h5>
+            <div class="footer-links">
+              <a href="tel:+8801234567890"
+                ><i class="fas fa-phone me-2"></i>+880 1234-567890</a
+              >
+              <a href="mailto:info@carelink.com"
+                ><i class="fas fa-envelope me-2"></i>info@carelink.com</a
+              >
+              <a href="#"
+                ><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</a
+              >
+              <a href="#"><i class="fas fa-clock me-2"></i>24/7 Available</a>
+            </div>
+          </div>
+        </div>
+        <hr style="border-color: rgba(255, 255, 255, 0.1)" />
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">&copy; 2025 CareLink. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">Privacy Policy | Terms of Service</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+      const API = "http://localhost:5000";
+
+      function toast(msg) {
+        alert(msg);
+      }
+
+      function demoLogin() {
+  const email = document.getElementById("l_email").value.trim();
+  const password = document.getElementById("l_password").value.trim();
+  
+  const demoUsers = {
+    'admin@carelink.com': { id: 1, name: 'Admin User', role: 'admin', password: 'admin123' },
+    'nurse@carelink.com': { id: 2, name: 'Demo Nurse', role: 'nurse', password: 'nurse123' },
+    'patient@carelink.com': { id: 3, name: 'Demo Patient', role: 'patient', password: 'patient123' }
+  };
+
+  if (demoUsers[email] && demoUsers[email].password === password) {
+    localStorage.setItem("user", JSON.stringify(demoUsers[email]));
+    
+    // Admin user কে admin dashboard এ redirect করার সময় admin_user ও store করি
+    if (demoUsers[email].role === "admin") {
+      localStorage.setItem("admin_user", JSON.stringify(demoUsers[email]));
+    }
+    
+    toast("Login successful! Welcome " + demoUsers[email].name);
+    
+    setTimeout(() => {
+      if (demoUsers[email].role === "admin") {
+        window.location.href = "file:///D:/RAKHIBU/carelink%20(2)/carelink/carelink/frontend/dashboard/admin_with_demo.html";
+      } else if (demoUsers[email].role === "nurse") {
+        window.location.href = "file:///D:/RAKHIBU/carelink%20(2)/carelink/carelink/frontend/dashboard/nurse.html";
+      } else {
+        window.location.href = "file:///D:/RAKHIBU/carelink%20(2)/carelink/carelink/frontend/dashboard/patient.html";
+      }
+    }, 1000);
+  } else {
+    toast("Invalid credentials. Try: admin@carelink.com / admin123");
+  }
+}
+      // Login button event
+      document.getElementById("btnLogin").onclick = demoLogin;
+
+      // Register function
+      document.getElementById("btnRegister").onclick = async () => {
+        const body = {
+          name: document.getElementById("r_name").value.trim(),
+          email: document.getElementById("r_email").value.trim(),
+          password: document.getElementById("r_password").value.trim(),
+          role: document.getElementById("r_role").value,
+        };
+        
+        if (!body.name || !body.email || !body.password) {
+          toast("Please fill all fields");
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API}/api/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          
+          const data = await res.json();
+          
+          if (res.ok) {
+            toast("Registration successful! Please login.");
+            // Clear form
+            document.getElementById("r_name").value = "";
+            document.getElementById("r_email").value = "";
+            document.getElementById("r_password").value = "";
+          } else {
+            toast("Registration failed: " + data.error);
+          }
+        } catch (e) {
+          toast("Error: " + e.message);
+        }
+      };
+
+      // Scroll effects
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 100) {
+          navbar.style.background = "rgba(255, 255, 255, 0.95)";
+          navbar.querySelector(".navbar-brand").style.color = "#1e293b";
+          navbar.querySelectorAll(".nav-link").forEach(link => {
+            link.style.color = "#1e293b";
+          });
+        } else {
+          navbar.style.background = "rgba(255, 255, 255, 0.1)";
+          navbar.querySelector(".navbar-brand").style.color = "rgba(255, 255, 255, 0.8)";
+          navbar.querySelectorAll(".nav-link").forEach(link => {
+            link.style.color = "rgba(255, 255, 255, 0.8)";
+          });
+        }
+      });
+
+    </script>
+    </body>
+</html>
